@@ -1,0 +1,164 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Segoe UI";
+}
+
+:root {
+  --text-dark: #1f2937;
+  --text-light: #6b7280;
+  --extra-light: #faf5ff;
+  --max-width: 1200px;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #f7f7f2;
+  color: #1e1e24;
+  overflow: hidden; /* Hide scrollbars */
+}
+
+/* Show scrollbar when hovering */
+body:hover {
+  overflow-y: auto; /* Show scrollbar when hovering over the body */
+}
+
+::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for WebKit browsers */
+}
+
+::-webkit-scrollbar {
+  width: 10px; /* Width of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Track color */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888; /* Thumb color */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Thumb color on hover */
+}
+
+
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 240px; /* Adjust width as needed */
+  z-index: 1000;
+}
+
+/* Change border color on hover */
+.custom-input:hover .ant-input {
+  border-color: #1f2937 !important;
+}
+
+/* Change border color when focused */
+.custom-input:focus-within .ant-input {
+  border-color: #1f2937 !important;
+}
+
+
+
+.login-button {
+  background-color: 1f2937;
+  color: #f1f1f1;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.login-button:hover {
+  background-color: #1e1e24;
+}
+
+
+.event-button {
+  background-color: #cbbf9b;
+  position: absolute;
+  color: #1d1b1b;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 20px;
+  left: 230px;
+}
+
+.schedule-button, .event-button {
+  display: flex; /* Use flexbox to align items */
+  align-items: center; /* Center items vertically */
+  background-color: #e1d4ab; /* Background color for schedule button */
+  color: #1d1b1b; /* Text color */
+  padding: 10px 20px; /* Padding */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Bold text */
+  margin-top: 20px; /* Spacing between buttons */
+  cursor: pointer; /* Pointer cursor on hover */
+  gap: 8px; /* Space between icon and text */
+}
+
+.schedule-button, .schedule-button {
+  display: flex; /* Use flexbox to align items */
+  align-items: center; /* Center items vertically */
+  background-color: #ffc107; /* Background color for schedule button */
+  color: #1d1b1b; /* Text color */
+  padding: 10px 20px; /* Padding */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  text-decoration: none; /* Remove underline */
+  font-weight: bold; /* Bold text */
+  margin-top: 20px; /* Spacing between buttons */
+  cursor: pointer; /* Pointer cursor on hover */
+  gap: 8px; /* Space between icon and text */
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .title-container {
+    width: 100vh;
+    height: 100vh;
+    position: absolute;
+    top: 150px;
+    left: 50px;
+  }
+
+  .title {
+    font-size: 3rem; /* Reduce title size for mobile */
+  }
+
+  .subtitle {
+    font-size: 1.5rem; /* Reduce subtitle size for mobile */
+  }
+
+  .description {
+    width: 400px;
+    font-weight: 200;
+    margin-top: 20px;
+  }
+
+  .schedule-button {
+    margin-top: 40px; /* Maintain spacing */
+    left: 0;
+  }
+
+  .event-button {
+    margin-top: 40px; /* Maintain spacing */
+    left: 210px;
+  }
+}

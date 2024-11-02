@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import SectionTitle from "../../components/SectionTitle";
 import "../styles/header.css";
 import "../styles/home.css";
@@ -14,6 +14,10 @@ import ReactJSImage from "../../assets/physics.png";
 import AboutImage from "../../assets/about.jpg";
 import Resume from "../../assets/my_cv.pdf";
 
+import Image1 from "../../assets/image/img1.jpg";
+import Image2 from "../../assets/image/img2.jpg";
+import Image3 from "../../assets/image/img3.jpg";
+import Image4 from "../../assets/image/img4.jpg";
 
 const Homepage = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -24,6 +28,37 @@ const Homepage = () => {
   const [activeTab, setActiveTab] = useState("skills");
   const opentab = (tabname) => {
     setActiveTab(tabname);
+  };
+
+  const sliderListRef = useRef(null);
+  const thumbnailRef = useRef(null);
+
+  const moveSlider = (direction) => {
+    const sliderList = sliderListRef.current;
+    const thumbnail = thumbnailRef.current;
+
+    if (sliderList && thumbnail) {
+      const sliderItems = sliderList.querySelectorAll(".item");
+      const thumbnailItems = thumbnail.querySelectorAll(".item");
+
+      if (direction === "next") {
+        sliderList.appendChild(sliderItems[0]);
+        thumbnail.appendChild(thumbnailItems[0]);
+        sliderList.classList.add("next");
+      } else {
+        sliderList.prepend(sliderItems[sliderItems.length - 1]);
+        thumbnail.prepend(thumbnailItems[thumbnailItems.length - 1]);
+        sliderList.classList.add("prev");
+      }
+
+      sliderList.addEventListener(
+        "animationend",
+        () => {
+          sliderList.classList.remove(direction);
+        },
+        { once: true }
+      );
+    }
   };
 
   return (
@@ -264,7 +299,107 @@ const Homepage = () => {
         <p className="section__text__p1">Browse My Recent</p>
         <h1 className="portfolio-title">Projects</h1>
 
-        
+        <div className="slider-container">
+          <div className="slider">
+            <div className="list" ref={sliderListRef}>
+              <div className="item">
+                <img src={Image1} alt="" />
+                <div className="content">
+                  <div className="title">MAGIC SLIDER</div>
+                  <div className="description">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Deleniti temporibus quis eum consequuntur voluptate quae
+                    doloribus distinctio. Possimus, sed recusandae. Lorem ipsum
+                    dolor sit amet consectetur adipisicing elit. Sequi, aut.
+                  </div>
+                  <div className="button">
+                    <button>DEMO</button>
+                    <button>SOURCE CODE</button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="item">
+                <img src={Image2} alt="" />
+                <div className="content">
+                  <div className="title">MAGIC SLIDER</div>
+                  <div className="description">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Deleniti temporibus quis eum consequuntur voluptate quae
+                    doloribus distinctio. Possimus, sed recusandae. Lorem ipsum
+                    dolor sit amet consectetur adipisicing elit. Sequi, aut.
+                  </div>
+                  <div className="button">
+                    <button>DEMO</button>
+                    <button>SOURCE CODE</button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="item">
+                <img src={Image4} alt="" />
+
+                <div className="content">
+                  <div className="title">MAGIC SLIDER</div>
+                  <div className="description">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Deleniti temporibus quis eum consequuntur voluptate quae
+                    doloribus distinctio. Possimus, sed recusandae. Lorem ipsum
+                    dolor sit amet consectetur adipisicing elit. Sequi, aut.
+                  </div>
+                  <div className="button">
+                    <button>DEMO</button>
+                    <button>SOURCE CODE</button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="item">
+                <img src={Image3} alt="" />
+
+                <div className="content">
+                  <div className="title">MAGIC SLIDER</div>
+                  <div className="description">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Deleniti temporibus quis eum consequuntur voluptate quae
+                    doloribus distinctio. Possimus, sed recusandae. Lorem ipsum
+                    dolor sit amet consectetur adipisicing elit. Sequi, aut.
+                  </div>
+                  <div className="button">
+                    <button>DEMO</button>
+                    <button>SOURCE CODE</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="thumbnail" ref={thumbnailRef}>
+              <div className="item">
+                <img src={Image1} alt="" />
+              </div>
+              <div className="item">
+                <img src={Image2} alt="" />
+              </div>
+              <div className="item">
+                <img src={Image3} alt="" />
+              </div>
+              <div className="item">
+                <img src={Image4} alt="" />
+              </div>
+            </div>
+
+            <div className="nextPrevArrows">
+              <button className="prev" onClick={() => moveSlider("prev")}>
+                {" "}
+                {"<"}{" "}
+              </button>
+              <button className="next" onClick={() => moveSlider("next")}>
+                {" "}
+                {">"}{" "}
+              </button>
+            </div>
+          </div>
+        </div>
       </section>
     </>
   );

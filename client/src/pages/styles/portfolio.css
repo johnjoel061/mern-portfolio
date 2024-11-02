@@ -1,0 +1,20 @@
+
+/* SECTIONS */
+.project-section{
+  padding-top: 3rem;
+  background-color: var(--extra-light);
+}
+
+.section__text__p1 {
+  color: var(--text-dark);
+  margin: 1rem;
+  padding-top: 2rem;
+  text-align: center;
+}
+
+.portfolio-title{
+  font-size: 3rem;
+  text-align: center;
+  color: var(--text-dark);
+}
+

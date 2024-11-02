@@ -3,6 +3,7 @@ import SectionTitle from "../../components/SectionTitle";
 import "../styles/header.css";
 import "../styles/home.css";
 import "../styles/about.css";
+import "../styles/portfolio.css";
 
 import Profile from "../../assets/profile.jpg";
 import HTMLImage from "../../assets/html-5.png";
@@ -44,10 +45,10 @@ const Homepage = () => {
               <a href="#about">About</a>
             </li>
             <li>
-              <a href="#services">Services</a>
+              <a href="#portfolio">Portfolio</a>
             </li>
             <li>
-              <a href="#projects">Portfolio</a>
+              <a href="#testimonials">Testimonials</a>
             </li>
             <li>
               <a href="#contact">Contact</a>
@@ -256,6 +257,11 @@ const Homepage = () => {
             </div>
           </div>
         </div>
+      </section>
+
+      <section className="project-section" id="projects">
+        <p className="section__text__p1">Browse My Recent</p>
+        <h1 className="portfolio-title">Projects</h1>
       </section>
     </>
   );

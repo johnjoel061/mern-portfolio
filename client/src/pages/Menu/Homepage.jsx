@@ -14,6 +14,7 @@ import ReactJSImage from "../../assets/physics.png";
 import AboutImage from "../../assets/about.jpg";
 import Resume from "../../assets/my_cv.pdf";
 
+
 const Homepage = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const toggleNav = () => {
@@ -259,9 +260,11 @@ const Homepage = () => {
         </div>
       </section>
 
-      <section className="project-section" id="projects">
+      <section className="project-section" id="portfolio">
         <p className="section__text__p1">Browse My Recent</p>
         <h1 className="portfolio-title">Projects</h1>
+
+        
       </section>
     </>
   );

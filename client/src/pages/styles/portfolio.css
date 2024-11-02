@@ -1,6 +1,5 @@
-
 /* SECTIONS */
-.project-section{
+.project-section {
   padding-top: 3rem;
   background-color: var(--extra-light);
 }
@@ -12,9 +11,66 @@
   text-align: center;
 }
 
-.portfolio-title{
+.portfolio-title {
   font-size: 3rem;
   text-align: center;
   color: var(--text-dark);
 }
 
+.project-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.project-card:hover {
+  transform: scale(1.05);
+}
+
+.project-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.project-info {
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.project-info h1 {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+  margin-bottom: 0.5rem;
+}
+
+.project-info p {
+  color: var(--text-light);
+  font-size: 1rem;
+  margin-bottom: 1rem;
+}
+
+.project-buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.project-btn {
+  background-color: var(--btn-color);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.project-btn:hover {
+  background-color: var(--btn-hover-color);
+}

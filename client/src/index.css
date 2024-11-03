@@ -146,12 +146,6 @@ body:hover {
     font-size: 1.5rem; /* Reduce subtitle size for mobile */
   }
 
-  .description {
-    width: 400px;
-    font-weight: 200;
-    margin-top: 20px;
-  }
-
   .schedule-button {
     margin-top: 40px; /* Maintain spacing */
     left: 0;

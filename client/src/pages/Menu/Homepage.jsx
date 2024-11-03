@@ -105,12 +105,14 @@ const Homepage = () => {
               </span>{" "}
               Full Stack & Blockchain Developer
             </h1>
-            <p className="description">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sequi
-              tempora deleniti. Odio, molestiae debitis quod aliquam consequatur
-              aliquid unde atque molestias nihil sint vel. Nulla unde iste
-              corporis deleniti.
-            </p>
+            <div className="description">
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel
+                sequi tempora deleniti. Odio, molestiae debitis quod aliquam
+                consequatur aliquid unde atque molestias nihil sint vel. Nulla
+                unde iste corporis deleniti.
+              </p>
+            </div>
             <div className="action__btns">
               <a
                 className="hire__me"
@@ -120,7 +122,7 @@ const Homepage = () => {
               >
                 Download CV
               </a>
-              <a className="portfolio" href="#projects">
+              <a className="portfolio" href="#portfolio">
                 Portfolio
               </a>
             </div>

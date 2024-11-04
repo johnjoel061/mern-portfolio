@@ -11,54 +11,59 @@ import {
 } from "antd";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { Box } from "@mui/material";
-import useAddFacility from "../../hooks/FacilityHook/useAddFacility";
-import useGetAllFacility from "../../hooks/FacilityHook/useGetAllFacility";
+import useAddSkill from "../../hooks/SkillHook/useAddSkill";
+import useGetAllSkill from "../../hooks/SkillHook/useGetAllSkill";
 import axios from "axios";
 
-const Facilities = () => {
+const Skills = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { loading: addFacilityLoading, error, addFacility } = useAddFacility();
-  const { facility, loading, refetchFacilities } = useGetAllFacility();
+  const { loading: addSkillLoading, error, addSkill } = useAddSkill();
+  const { skills, loading, refetchSkills } = useGetAllSkill();
 
-  // Form submit handler
+  // Form submit handler for adding a skill
   const handleFormSubmit = async (values) => {
-    const facilityName = values.facilityName; // Extract facility name from values
-    await addFacility(facilityName); // Use the addFacility hook
+    const { skillName, skillDescription } = values; // Extract skill name and description from values
+    await addSkill(skillName, skillDescription); // Use the addSkill hook with skill description
     if (!error) {
       setIsModalOpen(false); // Close modal on success
-      refetchFacilities(); // Refetch facilities to update the table
+      refetchSkills(); // Refetch skills to update the table
     }
   };
 
-  // Delete facility handler
-  const handleDeleteFacility = async (facilityId) => {
+  // Delete skill handler
+  const handleDeleteSkill = async (skillId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/location/facility/${facilityId}`, {
+      await axios.delete(`http://localhost:3000/api/talent/skill/${skillId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      message.success("Facility deleted successfully");
-      refetchFacilities();
+      message.success("Skill deleted successfully");
+      refetchSkills();
     } catch (err) {
-      message.error("Failed to delete facility");
+      message.error("Failed to delete skill");
     }
   };
 
   // Table columns
   const columns = [
     {
-      title: "Facility Name",
-      dataIndex: "facilityName",
-      key: "facilityName",
+      title: "Skill Name",
+      dataIndex: "skillName",
+      key: "skillName",
+    },
+    {
+      title: "Skill Description",
+      dataIndex: "skillDescription",
+      key: "skillDescription",
     },
     {
       title: "Actions",
       key: "actions",
       render: (text, record) => (
         <Popconfirm
-          title="Are you sure to delete this facility?"
-          onConfirm={() => handleDeleteFacility(record._id)}
+          title="Are you sure you want to delete this skill?"
+          onConfirm={() => handleDeleteSkill(record._id)}
           okText="Yes"
           cancelText="No"
         >
@@ -72,7 +77,7 @@ const Facilities = () => {
 
   return (
     <Box m="20px">
-      <Typography.Title level={4}>ADD FACILITY</Typography.Title>
+      <Typography.Title level={4}>Add Skill</Typography.Title>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Button
           type="primary"
@@ -84,7 +89,7 @@ const Facilities = () => {
           onClick={() => setIsModalOpen(true)}
         >
           <AddCircleOutlineOutlinedIcon />
-          <span>NEW FACILITY</span>
+          <span>New Skill</span>
         </Button>
       </Box>
 
@@ -100,46 +105,53 @@ const Facilities = () => {
       >
         <Table
           columns={columns}
-          dataSource={facility}
+          dataSource={skills}
           loading={loading}
           rowKey={(record) => record._id}
           pagination={{ pageSize: 10 }}
         />
       </Box>
 
-      {/* Modal for Adding New Facility */}
+      {/* Modal for Adding New Skill */}
       <Modal
-        title="Add New Facility"
+        title="Add New Skill"
         open={isModalOpen}
         onCancel={() => setIsModalOpen(false)}
         footer={null}
       >
-        <Form
-          layout="vertical"
-          onFinish={handleFormSubmit} // Handle form submission
-        >
+        <Form layout="vertical" onFinish={handleFormSubmit}>
           <Form.Item
-            label="Facility Name"
+            label="Skill Name"
             style={{ fontWeight: "bold" }}
-            name="facilityName"
-            rules={[{ required: true, message: "Please enter the facility name" }]}
+            name="skillName"
+            rules={[{ required: true, message: "Please enter the skill name" }]}
             className="custom-input"
           >
             <Input className="ant-input" />
+          </Form.Item>
+
+          <Form.Item
+            label="Skill Description"
+            style={{ fontWeight: "bold" }}
+            name="skillDescription"
+            rules={[{ required: true, message: "Please enter the skill description" }]}
+            className="custom-input"
+          >
+            <Input.TextArea className="ant-input" rows={3} />
           </Form.Item>
 
           <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
-              loading={addFacilityLoading} 
+              loading={addSkillLoading}
               style={{
                 width: "100%",
                 fontWeight: "bold",
                 background: "#0A5E4F",
               }}
             >
-              Add Facility
+              Add Skill
             </Button>
           </Form.Item>
         </Form>
@@ -151,4 +163,4 @@ const Facilities = () => {
   );
 };
 
-export default Facilities;
+export default Skills;

@@ -48,7 +48,6 @@ body:hover {
 }
 
 
-
 .sidebar {
   position: fixed;
   top: 0;
@@ -67,7 +66,6 @@ body:hover {
 .custom-input:focus-within .ant-input {
   border-color: #1f2937 !important;
 }
-
 
 
 .login-button {

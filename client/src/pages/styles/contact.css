@@ -1,0 +1,57 @@
+.contact-section {
+  background: var(--extra-light);
+  padding: 5rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.contact .container .sub-title {
+  font-size: 60px;
+  font-weight: 600;
+  color: var(--text-dark);
+}
+.contact-left p{
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 3rem 0;
+}
+
+.contact-left p .email-icon {
+  margin-right: 0.5rem; /* Adds space between the icon and the email */
+  font-size: 1.2rem; /* Adjust icon size to align better with text */
+}
+
+.social-icons{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  text-align: center;
+  gap: 1rem;
+ 
+}
+
+.social-icons a {
+  font-size: 1.5rem;
+  color: var(--text-dark);
+}
+
+.social-icons a:hover {
+  color: var(--primary-color); /* Define your preferred hover color */
+}
+
+@media only screen and (max-width: 900px) {
+  .contact-section {
+    padding: 5rem 1rem 5rem 1rem;
+  }
+
+  .contact .container .row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}

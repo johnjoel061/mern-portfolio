@@ -136,6 +136,7 @@
   gap: 10px;
   align-items: center;
 }
+
 .nextPrevArrows button{
   width: 40px;
   height: 40px;
@@ -148,6 +149,7 @@
   transition: .5s;
   cursor: pointer;
 }
+
 .nextPrevArrows button:hover{
   background-color: #fff;
   color: var(--text-dark);

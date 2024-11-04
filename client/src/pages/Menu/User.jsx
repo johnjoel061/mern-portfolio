@@ -86,7 +86,7 @@ const User = () => {
 
   return (
     <Box m="20px">
-      <Typography.Title level={4}>ADD ADMINISTRATOR</Typography.Title>
+      <Typography.Title level={4}>Add Admin</Typography.Title>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Button
           type="primary"

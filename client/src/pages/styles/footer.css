@@ -1,0 +1,18 @@
+.footer {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  background: var(--text-dark);
+  font-weight: 300;
+  color: var(--extra-light);
+}
+.footer i {
+  color: var(--extra-light);
+}
+.footer a {
+  text-decoration: none;
+  color: #fff;
+}
+.footer a:hover {
+  color: var(--extra-light);
+}

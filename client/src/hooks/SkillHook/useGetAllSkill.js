@@ -1,20 +1,21 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-const useFetchUsers = () => {
-  const [users, setUsers] = useState([]);
+const useFetchSkills = () => {
+  const [skills, setSkills] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  const fetchUsers = useCallback(async () => {
+  const fetchSkills = useCallback(async () => {
     setLoading(true); // Ensure loading state is true when refetching
     try {
-      const response = await axios.get('http://localhost:3000/api/admin/users/all', {
+      const response = await axios.get('http://localhost:3000/api/talent/skill/all', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-      setUsers(response.data.data);
+      setSkills(response.data.data);
+      setError(null); // Clear previous errors on success
     } catch (err) {
       setError(err);
     } finally {
@@ -23,14 +24,14 @@ const useFetchUsers = () => {
   }, []);
 
   useEffect(() => {
-    fetchUsers();
-  }, [fetchUsers]);
+    fetchSkills();
+  }, [fetchSkills]);
 
-  const refetchUsers = async () => {
-    await fetchUsers();
+  const refetchSkills = async () => {
+    await fetchSkills();
   };
 
-  return { users, loading, error, refetchUsers };
+  return { skills, loading, error, refetchSkills };
 };
 
-export default useFetchUsers;
+export default useFetchSkills;

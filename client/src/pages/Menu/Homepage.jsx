@@ -1,9 +1,18 @@
 import { useState, useRef } from "react";
+import {
+  FaPaperPlane,
+  FaFacebook,
+  FaInstagram,
+  FaTiktok,
+} from "react-icons/fa";
 import SectionTitle from "../../components/SectionTitle";
 import "../styles/header.css";
 import "../styles/home.css";
 import "../styles/about.css";
 import "../styles/portfolio.css";
+import "../styles/testimonials.css";
+import "../styles/contact.css";
+import "../styles/footer.css";
 
 import Profile from "../../assets/profile.jpg";
 import HTMLImage from "../../assets/html-5.png";
@@ -18,6 +27,17 @@ import Image1 from "../../assets/image/img1.jpg";
 import Image2 from "../../assets/image/img2.jpg";
 import Image3 from "../../assets/image/img3.jpg";
 import Image4 from "../../assets/image/img4.jpg";
+
+// Import Swiper React components
+import { Swiper, SwiperSlide } from "swiper/react";
+import { motion } from "framer-motion";
+
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+
+// import required modules
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 const Homepage = () => {
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -103,14 +123,15 @@ const Homepage = () => {
                 Joel
                 <br />a
               </span>{" "}
-              Full Stack & Blockchain Developer
+              Full Stack Developer
             </h1>
             <div className="description">
               <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel
-                sequi tempora deleniti. Odio, molestiae debitis quod aliquam
-                consequatur aliquid unde atque molestias nihil sint vel. Nulla
-                unde iste corporis deleniti.
+                A 4th-year Computer Science student with a keen interest in full
+                stack development. Proficient in a range of technologies,
+                including React, Node.js, and MongoDB, I excel at creating
+                comprehensive web applications that cover both front-end and
+                back-end development.
               </p>
             </div>
             <div className="action__btns">
@@ -120,7 +141,7 @@ const Homepage = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Download CV
+                Resume
               </a>
               <a className="portfolio" href="#portfolio">
                 Portfolio
@@ -403,6 +424,104 @@ const Homepage = () => {
           </div>
         </div>
       </section>
+
+      <section className="testimonial-section" id="testimonials">
+        <p className="testimonial__text__p1">My Client</p>
+        <h1 className="testimonial-title">Testimonials</h1>
+
+        <Swiper
+          spaceBetween={30}
+          centeredSlides={true}
+          autoplay={{
+            delay: 3000,
+            disableOnInteraction: false,
+          }}
+          pagination={{
+            clickable: true,
+          }}
+          navigation={false}
+          modules={[Autoplay, Pagination, Navigation]}
+          className="mySwiper"
+        >
+          <SwiperSlide>
+            <div className="testimonial-container">
+              <figure className="snip1157 hover">
+                <blockquote>
+                  Thank you. before I begin, I'd like everyone to notice that my
+                  report is in a professional, clear plastic binder...When a
+                  report looks this good, you know it'll get an A. That's a tip
+                  kids. Write it down.
+                  <div className="arrow"></div>
+                </blockquote>
+                <img
+                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sq-sample27.jpg"
+                  alt="sq-sample27"
+                />
+                <div className="author">
+                  <h5>
+                    Max Conversion<span> LIttleSnippets.net</span>
+                  </h5>
+                </div>
+              </figure>
+            </div>
+          </SwiperSlide>
+
+          <SwiperSlide>
+            <div className="testimonial-container">
+              <figure className="snip1157 hover">
+                <blockquote>
+                  Thank you. before I begin, I'd like everyone to notice that my
+                  report is in a professional, clear plastic binder...When a
+                  report looks this good, you know it'll get an A. That's a tip
+                  kids. Write it down.
+                  <div className="arrow"></div>
+                </blockquote>
+                <img
+                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sq-sample27.jpg"
+                  alt="sq-sample27"
+                />
+                <div className="author">
+                  <h5>
+                    Max Conversion<span> LIttleSnippets.net</span>
+                  </h5>
+                </div>
+              </figure>
+            </div>
+          </SwiperSlide>
+        </Swiper>
+      </section>
+
+      <section className="contact-section" id="contact">
+        <div className="contact">
+          <div className="container">
+            <div className="row">
+              <div className="contact-left">
+                <h1 className="sub-title">Contact Me</h1>
+                <p>
+                  <FaPaperPlane className="email-icon" />
+                  alfabetejohnjoel@gmail.com
+                </p>
+                <div className="social-icons">
+                  <a href="#">
+                    <FaFacebook />
+                  </a>
+                  <a href="#">
+                    <FaInstagram />
+                  </a>
+                  <a href="#">
+                    <FaTiktok />
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div className="footer">
+        <p>
+          <a href="#home">© 2024 John Joel Alfabete. All rights reserved.</a>
+        </p>
+      </div>
     </>
   );
 };

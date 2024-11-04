@@ -3,13 +3,15 @@ import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
 import { Box, Typography, Avatar, Divider } from "@mui/material";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link } from "react-router-dom";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
-import DomainAddIcon from "@mui/icons-material/DomainAdd";
-import DateRangeIcon from "@mui/icons-material/DateRange";
-import EventAvailableIcon from "@mui/icons-material/EventAvailable";
-import EventBusyIcon from "@mui/icons-material/EventBusy";
-import Logo from "../../assets/logo.jpg";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import SchoolIcon from "@mui/icons-material/School";
+import CodeIcon from "@mui/icons-material/Code";
+import VerifiedIcon from "@mui/icons-material/Verified";
+import FolderIcon from "@mui/icons-material/Folder";
+import RateReviewIcon from "@mui/icons-material/RateReview";
+import WorkHistoryIcon from "@mui/icons-material/WorkHistory";
+
 
 const Item = ({ title, to, icon, selected, setSelected }) => (
   <MenuItem
@@ -34,24 +36,23 @@ const Item = ({ title, to, icon, selected, setSelected }) => (
       <Box
         component="span"
         sx={{
-          fontSize: "24px",
-          fontWeight: "bold",
+          fontSize: "1rem",
+          fontFamily: "Segoe UI",
           display: "flex",
           alignItems: "center",
-          color: selected === title ? "#0a5e4f" : "#333", // Change icon color based on selection
+          color: selected === title ? "#0a5e4f" : "#333",
         }}
       >
         {icon}
       </Box>
       <Typography
         sx={{
-          fontFamily: "Montserrat",
-          fontSize: "24px",
-          fontWeight: "bold",
+          fontFamily: "Segoe UI",
+          fontSize: "1rem",
           cursor: "pointer",
-          color: selected === title ? "#0a5e4f" : "#333", // Change title color based on selection
+          color: selected === title ? "#0a5e4f" : "#333",
           "&:hover": {
-            color: "#0a5e4f", // Change color on hover
+            color: "#0a5e4f",
           },
         }}
       >
@@ -72,8 +73,9 @@ const AdminSidebar = () => {
         position: "sticky",
         top: 0,
         height: "100vh",
+        width: "15vw",
         overflowY: "auto",
-        fontFamily: "Montserrat",
+        fontFamily: "Segoe UI",
         bgcolor: "#F0F0F0",
         boxShadow: 1,
         "& .pro-sidebar-inner": {
@@ -98,7 +100,7 @@ const AdminSidebar = () => {
               variant="h6"
               color="textPrimary"
               fontWeight="bold"
-              sx={{ mt: 1, fontFamily: "Montserrat" }}
+              sx={{ mt: 1, fontFamily: "Segoe UI" }}
             >
               {userData.lastName}, {userData.firstName}
             </Typography>
@@ -106,7 +108,7 @@ const AdminSidebar = () => {
               variant="body2"
               color="textSecondary"
               sx={{
-                fontFamily: "Montserrat",
+                fontFamily: "Segoe UI",
                 color: "#E24036",
                 fontWeight: "bold",
               }}
@@ -119,13 +121,6 @@ const AdminSidebar = () => {
 
           <Box paddingLeft={"1%"}>
             <Item
-              title="Dashboard"
-              to="/admin-dashboard"
-              icon={<HomeOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
               title="User"
               to="/user"
               icon={<PersonAddAltIcon />}
@@ -133,48 +128,54 @@ const AdminSidebar = () => {
               setSelected={setSelected}
             />
             <Item
-              title="Facilities"
-              to="/facilities"
-              icon={<DomainAddIcon />}
+              title="Skills"
+              to="/skills"
+              icon={<WorkOutlineIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Pending Schedule"
-              to="pending-schedule"
-              icon={<DateRangeIcon />}
+              title="Experience"
+              to="experience"
+              icon={<WorkHistoryIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Approved Schedule"
-              to="/approved-schedule"
-              icon={<EventAvailableIcon />}
+              title="Education"
+              to="/education"
+              icon={<SchoolIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
-              title="Disapproved Schedule"
-              to="disapproved-schedule"
-              icon={<EventBusyIcon />}
+              title="Tech Stack"
+              to="tech-stack"
+              icon={<CodeIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-
-            <Box textAlign="center" mt={6} paddingBottom={2}>
-              <img
-                alt="Logo"
-                width="120px"
-                height="120px"
-                src={Logo}
-                style={{
-                  cursor: "pointer",
-                  borderRadius: "50%",
-                  margin: "auto",
-                  display: "block",
-                }}
-              />
-            </Box>
+            <Item
+              title="Certifications"
+              to="certifications"
+              icon={<VerifiedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Portfolio"
+              to="portfolio"
+              icon={<FolderIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Testimonials"
+              to="testimonials"
+              icon={<RateReviewIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
           </Box>
         </Menu>
       </ProSidebar>

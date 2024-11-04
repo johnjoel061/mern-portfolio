@@ -2,21 +2,21 @@ import { useState } from 'react';
 import axios from 'axios';
 import { message } from 'antd';
 
-const useAddFacility = () => {
+const useAddSkill = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const addFacility = async (facilityName) => {
-    if (!facilityName) {
-      return setError('Facility name is required');
+  const addSkill = async (skillName, skillDescription) => {
+    if (!skillName || !skillDescription) {
+      return setError('Skill name and description are required');
     }
 
     setLoading(true);
     try {
-      // Send POST request to add a new facility
+      // Send POST request to add a new skill
       const response = await axios.post(
-        'https://debesmscat-scheduling-and-reservation.onrender.com/api/location/facility/add',
-        { facilityName },
+        'http://localhost:3000/api/talent/skill/add',
+        { skillName, skillDescription },
         {
           headers: {
             'Content-Type': 'application/json',
@@ -25,12 +25,12 @@ const useAddFacility = () => {
       );
 
       if (response.status === 201) {
-        message.success(response.data.message || 'Facility added successfully');
+        message.success(response.data.message || 'Skill added successfully');
         setError(null); // Reset error on success
       } else if (response.status === 400) {
-        setError(response.data.message || 'Facility already exists');
+        setError(response.data.message || 'Skill already exists');
       } else {
-        message.error('Failed to add facility. Please try again.');
+        message.error('Failed to add skill. Please try again.');
       }
     } catch (error) {
       // Handle specific error cases
@@ -39,13 +39,13 @@ const useAddFacility = () => {
       } else {
         setError('An error occurred. Please try again.');
       }
-      message.error(`Add facility error: ${error.message}`);
+      message.error(`Add skill error: ${error.message}`);
     } finally {
       setLoading(false);
     }
   };
 
-  return { loading, error, addFacility };
+  return { loading, error, addSkill };
 };
 
-export default useAddFacility;
+export default useAddSkill;

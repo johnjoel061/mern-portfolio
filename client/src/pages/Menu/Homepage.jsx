@@ -81,6 +81,12 @@ const Homepage = () => {
     }
   };
 
+  // Animation settings
+  const divVariants = {
+    hidden: { opacity: 0, y: 60 },
+    visible: { opacity: 1, y: 0 },
+  };
+
   return (
     <>
       <header>
@@ -117,15 +123,27 @@ const Homepage = () => {
         <div className="section__container">
           <div className="content">
             <p className="subtitle">HELLO</p>
-            <h1 className="title">
+            <motion.h1
+              initial="hidden"
+              whileInView="visible"
+              variants={divVariants}
+              transition={{ duration: 0.5 }}
+              className="title"
+            >
               I'm{" "}
               <span>
                 Joel
                 <br />a
               </span>{" "}
               Full Stack Developer
-            </h1>
-            <div className="description">
+            </motion.h1>
+            <motion.div
+              initial="hidden" // Initial state of the card
+              whileInView="visible" // Trigger animation when in view
+              variants={divVariants} // Use the animation settings
+              transition={{ duration: 0.8 }} // Animation duration
+              className="description"
+            >
               <p>
                 A 4th-year Computer Science student with a keen interest in full
                 stack development. Proficient in a range of technologies,
@@ -133,7 +151,7 @@ const Homepage = () => {
                 comprehensive web applications that cover both front-end and
                 back-end development.
               </p>
-            </div>
+            </motion.div>
             <div className="action__btns">
               <a
                 className="hire__me"
@@ -158,19 +176,44 @@ const Homepage = () => {
         <div className="about">
           <div className="container">
             <div className="row">
-              <div className="about-col-1">
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                variants={divVariants}
+                transition={{ duration: 0.8 }}
+                className="about-col-1"
+              >
                 <img src={AboutImage} alt="" />
-              </div>
+              </motion.div>
 
               <div className="about-col-2">
-                <h1 className="sub-title">About Me</h1>
-                <p>
+                <motion.h1
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={divVariants}
+                  transition={{ duration: 0.8 }}
+                  className="sub-title"
+                >
+                  About Me
+                </motion.h1>
+                <motion.p
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={divVariants}
+                  transition={{ duration: 0.8 }}
+                >
                   Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
                   soluta quidem, optio fuga et ducimus beatae sunt praesentium,
                   culpa placeat hic quo saepe! Dolor ut praesentium quibusdam
                   consequuntur laborum molestias!
-                </p>
-                <div className="tab-titles">
+                </motion.p>
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={divVariants}
+                  transition={{ duration: 0.8 }}
+                  className="tab-titles"
+                >
                   <p
                     className={`tab-links ${
                       activeTab === "skills" ? "active-link" : ""
@@ -195,9 +238,13 @@ const Homepage = () => {
                   >
                     Education
                   </p>
-                </div>
+                </motion.div>
 
-                <div
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={divVariants}
+                  transition={{ duration: 0.5 }}
                   className={`tab-contents ${
                     activeTab === "skills" ? "active-tab" : ""
                   }`}
@@ -214,7 +261,8 @@ const Homepage = () => {
                       earum illum?
                     </li>
                   </ul>
-                </div>
+                </motion.div>
+
                 <div
                   className={`tab-contents ${
                     activeTab === "experience" ? "active-tab" : ""

@@ -263,7 +263,11 @@ const Homepage = () => {
                   </ul>
                 </motion.div>
 
-                <div
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={divVariants}
+                  transition={{ duration: 0.5 }}
                   className={`tab-contents ${
                     activeTab === "experience" ? "active-tab" : ""
                   }`}
@@ -279,8 +283,13 @@ const Homepage = () => {
                       hic similique at possimus cupiditate voluptates harum.
                     </li>
                   </ul>
-                </div>
-                <div
+                </motion.div>
+
+                <motion.div
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={divVariants}
+                  transition={{ duration: 0.5 }}
                   className={`tab-contents ${
                     activeTab === "education" ? "active-tab" : ""
                   }`}
@@ -297,12 +306,26 @@ const Homepage = () => {
                       aperiam repellendus.
                     </li>
                   </ul>
-                </div>
+                </motion.div>
 
                 <div className="tech-stack">
-                  <h1 className="sub-title">Tech Stack</h1>
+                  <motion.h1
+                    initial="hidden"
+                    whileInView="visible"
+                    variants={divVariants}
+                    transition={{ duration: 0.5 }}
+                    className="sub-title"
+                  >
+                    Tech Stack
+                  </motion.h1>
 
-                  <div className="techStack-container">
+                  <motion.div
+                    initial="hidden"
+                    whileInView="visible"
+                    variants={divVariants}
+                    transition={{ duration: 0.8 }}
+                    className="techStack-container"
+                  >
                     <div className="techStack-content">
                       <img src={HTMLImage} alt="" />
                     </div>
@@ -330,13 +353,19 @@ const Homepage = () => {
                     <div className="techStack-content">
                       <img src={ReactJSImage} alt="" />
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
               </div>
             </div>
 
             <SectionTitle title="Certifications" />
-            <div className="certification-container">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              variants={divVariants}
+              transition={{ duration: 0.8 }}
+              className="certification-container"
+            >
               <div className="card">
                 <h3 className="card__title">Responsive Web Certification</h3>
                 <p className="card__content">
@@ -361,16 +390,36 @@ const Homepage = () => {
                   </svg>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
 
       <section className="project-section" id="portfolio">
-        <p className="section__text__p1">Browse My Recent</p>
-        <h1 className="portfolio-title">Projects</h1>
+        <motion.p
+          initial="hidden"
+          whileInView="visible"
+          variants={divVariants}
+          transition={{ duration: 0.5 }}
+          className="section__text__p1"
+        >
+          Browse My Recent
+        </motion.p>
+        <motion.h1
+          initial="hidden"
+          whileInView="visible"
+          variants={divVariants}
+          transition={{ duration: 0.8 }}
+          className="portfolio-title"
+        >
+          Projects
+        </motion.h1>
 
-        <div className="slider-container">
+        <motion.div initial="hidden"
+          whileInView="visible"
+          variants={divVariants}
+          transition={{ duration: 0.8 }}
+          className="slider-container">
           <div className="slider">
             <div className="list" ref={sliderListRef}>
               <div className="item">
@@ -470,7 +519,7 @@ const Homepage = () => {
               </button>
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="testimonial-section" id="testimonials">

@@ -415,11 +415,13 @@ const Homepage = () => {
           Projects
         </motion.h1>
 
-        <motion.div initial="hidden"
+        <motion.div
+          initial="hidden"
           whileInView="visible"
           variants={divVariants}
           transition={{ duration: 0.8 }}
-          className="slider-container">
+          className="slider-container"
+        >
           <div className="slider">
             <div className="list" ref={sliderListRef}>
               <div className="item">
@@ -523,8 +525,24 @@ const Homepage = () => {
       </section>
 
       <section className="testimonial-section" id="testimonials">
-        <p className="testimonial__text__p1">My Client</p>
-        <h1 className="testimonial-title">Testimonials</h1>
+        <motion.p
+          initial="hidden"
+          whileInView="visible"
+          variants={divVariants}
+          transition={{ duration: 0.5 }}
+          className="testimonial__text__p1"
+        >
+          My Client
+        </motion.p>
+        <motion.h1
+          initial="hidden"
+          whileInView="visible"
+          variants={divVariants}
+          transition={{ duration: 0.8 }}
+          className="testimonial-title"
+        >
+          Testimonials
+        </motion.h1>
 
         <Swiper
           spaceBetween={30}
@@ -593,11 +611,24 @@ const Homepage = () => {
           <div className="container">
             <div className="row">
               <div className="contact-left">
-                <h1 className="sub-title">Contact Me</h1>
-                <p>
+                <motion.h1
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={divVariants}
+                  transition={{ duration: 0.5 }}
+                  className="sub-title"
+                >
+                  Contact Me
+                </motion.h1>
+                <motion.p
+                  initial="hidden"
+                  whileInView="visible"
+                  variants={divVariants}
+                  transition={{ duration: 0.8 }}
+                >
                   <FaPaperPlane className="email-icon" />
                   alfabetejohnjoel@gmail.com
-                </p>
+                </motion.p>
                 <div className="social-icons">
                   <a href="#">
                     <FaFacebook />

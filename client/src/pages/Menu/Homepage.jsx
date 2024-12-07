@@ -275,8 +275,8 @@ const Homepage = () => {
                 >
                   <ul>
                     <li>
-                      <span>2019</span>
-                      <br />
+                      <span>2019 - 2020</span>
+                      <br/>
                       Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                       Consectetur aperiam at adipisci debitis mollitia doloribus
                       quia consequuntur architecto sed. Nemo, ut omnis commodi

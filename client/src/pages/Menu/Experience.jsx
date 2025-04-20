@@ -11,66 +11,66 @@ import {
 } from "antd";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { Box } from "@mui/material";
-// import useAddSkill from "../../hooks/SkillHook/useAddSkill";
+import useAddExperience from "../../hooks/ExperienceHook/useAddExperience";
 import useGetAllExperience from "../../hooks/ExperienceHook/useGetAllExperience";
-// import useUpdateSkill from "../../hooks/SkillHook/useUpdateSkill";
+import useUpdateExperience from "../../hooks/ExperienceHook/useUpdateExperience";
 import axios from "axios";
 
 const Experience = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [editingSkill, setEditingSkill] = useState(null);
+  const [editingExperience, setEditingExperience] = useState(null);
 
-  // const { loading: addSkillLoading, error, addSkill } = useAddSkill();
-  // const { loading: updateLoading, error: updateError, updateSkill } = useUpdateSkill();
-  const { skills, loading, refetchSkills } = useGetAllExperience();
+  const { addExperience, loading: addExperienceLoading, error: addError } = useAddExperience();
+  const { updateExperience, loading: updateLoading, error: updateError } = useUpdateExperience();
+  const { experiences, loading, refetchExperiences } = useGetAllExperience();
 
   const [form] = Form.useForm();
   const [editForm] = Form.useForm();
 
-  // Add skill handler
+  // Add experience handler
   const handleFormSubmit = async (values) => {
-    const { skillName, skillDescription } = values;
-    await addSkill(skillName, skillDescription);
-    if (!error) {
+    await addExperience(values);
+    if (!addError) {
       setIsModalOpen(false);
       form.resetFields();
-      refetchSkills();
+      refetchExperiences();
     }
   };
 
-  // Delete skill handler
-  const handleDeleteSkill = async (skillId) => {
+  // Delete experience handler
+  const handleDeleteExperience = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/employment/experience/${skillId}`, {
+      await axios.delete(`http://localhost:3000/api/employment/experience/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      message.success("Skill deleted successfully");
-      refetchSkills();
+      message.success("Experience deleted successfully.");
+      refetchExperiences();
     } catch (err) {
-      message.error("Failed to delete skill");
+      message.error("Failed to delete experience.");
     }
   };
 
-  // Edit skill modal open
-  const handleEdit = (skill) => {
-    setEditingSkill(skill);
+  // Edit modal open
+  const handleEdit = (experience) => {
+    setEditingExperience(experience);
     editForm.setFieldsValue({
-      skillName: skill.skillName,
-      skillDescription: skill.skillDescription,
+      experienceName: experience.experienceName,
+      companyName: experience.companyName,
+      experienceDate: experience.experienceDate,
+      experienceDescription: experience.experienceDescription,
     });
     setIsEditModalOpen(true);
   };
 
   // Submit update
   const handleUpdate = async (values) => {
-    const { skillName, skillDescription } = values;
-    await updateSkill(editingSkill._id, skillName, skillDescription);
+    await updateExperience(editingExperience._id, values);
     if (!updateError) {
       setIsEditModalOpen(false);
-      refetchSkills();
+      refetchExperiences();
     }
   };
 
@@ -99,14 +99,14 @@ const Experience = () => {
     {
       title: "Actions",
       key: "actions",
-      render: (text, record) => (
+      render: (_, record) => (
         <>
           <Button type="link" onClick={() => handleEdit(record)}>
             Edit
           </Button>
           <Popconfirm
             title="Are you sure you want to delete this experience?"
-            onConfirm={() => handleDeleteSkill(record._id)}
+            onConfirm={() => handleDeleteExperience(record._id)}
             okText="Yes"
             cancelText="No"
           >
@@ -121,7 +121,7 @@ const Experience = () => {
 
   return (
     <Box m="20px">
-      <Typography.Title level={4}>Add Experience</Typography.Title>
+      <Typography.Title level={4}>Experience Management</Typography.Title>
       <Box display="flex" justifyContent="space-between" alignItems="center">
         <Button
           type="primary"
@@ -133,7 +133,7 @@ const Experience = () => {
           onClick={() => setIsModalOpen(true)}
         >
           <AddCircleOutlineOutlinedIcon />
-          <span>New Experience</span>
+          <span style={{ marginLeft: "8px" }}>New Experience</span>
         </Button>
       </Box>
 
@@ -149,14 +149,14 @@ const Experience = () => {
       >
         <Table
           columns={columns}
-          dataSource={skills}
+          dataSource={experiences}
           loading={loading}
           rowKey={(record) => record._id}
           pagination={{ pageSize: 10 }}
         />
       </Box>
 
-      {/* Modal for Adding New Skill */}
+      {/* Modal for Adding Experience */}
       <Modal
         title="Add New Experience"
         open={isModalOpen}
@@ -176,6 +176,22 @@ const Experience = () => {
           </Form.Item>
 
           <Form.Item
+            label="Company Name"
+            name="companyName"
+            rules={[{ required: true, message: "Please enter the company name" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Experience Date"
+            name="experienceDate"
+            rules={[{ required: true, message: "Please enter the experience date" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
             label="Experience Description"
             name="experienceDescription"
             rules={[{ required: true, message: "Please enter the experience description" }]}
@@ -187,7 +203,7 @@ const Experience = () => {
             <Button
               type="primary"
               htmlType="submit"
-              loading={addSkillLoading}
+              loading={addExperienceLoading}
               style={{ width: "100%", fontWeight: "bold", background: "#0A5E4F" }}
             >
               Add Experience
@@ -195,10 +211,10 @@ const Experience = () => {
           </Form.Item>
         </Form>
 
-        {error && <Typography.Text type="danger">{error}</Typography.Text>}
+        {addError && <Typography.Text type="danger">{addError}</Typography.Text>}
       </Modal>
 
-      {/* Modal for Editing Skill */}
+      {/* Modal for Editing Experience */}
       <Modal
         title="Edit Experience"
         open={isEditModalOpen}
@@ -213,6 +229,22 @@ const Experience = () => {
             label="Experience Name"
             name="experienceName"
             rules={[{ required: true, message: "Please enter the experience name" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Company Name"
+            name="companyName"
+            rules={[{ required: true, message: "Please enter the company name" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Experience Date"
+            name="experienceDate"
+            rules={[{ required: true, message: "Please enter the experience date" }]}
           >
             <Input />
           </Form.Item>

@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
 const useFetchExperiences = () => {
-  const [skills, setExperiences] = useState([]);
+  const [experiences, setExperiences] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -31,7 +31,7 @@ const useFetchExperiences = () => {
     await fetchExperiences();
   };
 
-  return { skills, loading, error, refetchExperiences };
+  return { experiences, loading, error, refetchExperiences };
 };
 
 export default useFetchExperiences;

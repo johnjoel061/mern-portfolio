@@ -28,6 +28,8 @@ import Image2 from "../../assets/image/img2.jpg";
 import Image3 from "../../assets/image/img3.jpg";
 import Image4 from "../../assets/image/img4.jpg";
 
+import useGetAllSkill from "../../hooks/SkillHook/useGetAllSkill";
+
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
@@ -44,6 +46,8 @@ const Homepage = () => {
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
+
+  const { skills, loading, refetchSkills } = useGetAllSkill();
 
   const [activeTab, setActiveTab] = useState("skills");
   const opentab = (tabname) => {
@@ -250,17 +254,19 @@ const Homepage = () => {
                   }`}
                   id="skills"
                 >
-                  <ul>
-                    <li>
-                      <span>Python Programming</span>
-                      <br />
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Magni, perspiciatis est nemo doloremque vel delectus
-                      quisquam, fugiat quos suscipit voluptatum numquam odit,
-                      exercitationem expedita deserunt ullam! Beatae debitis
-                      earum illum?
-                    </li>
-                  </ul>
+                  {loading ? (
+                    <p>Loading skills...</p>
+                  ) : (
+                    <ul>
+                      {skills?.map((skill, index) => (
+                        <li key={index}>
+                          <span>{skill.skillName}</span>
+                          <br />
+                          {skill.skillDescription}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </motion.div>
 
                 <motion.div
@@ -276,7 +282,7 @@ const Homepage = () => {
                   <ul>
                     <li>
                       <span>2019 - 2020</span>
-                      <br/>
+                      <br />
                       Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                       Consectetur aperiam at adipisci debitis mollitia doloribus
                       quia consequuntur architecto sed. Nemo, ut omnis commodi

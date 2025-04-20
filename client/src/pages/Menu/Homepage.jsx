@@ -281,8 +281,24 @@ const Homepage = () => {
                 >
                   <ul>
                     <li>
-                      <span>2019 - 2020</span>
+                      <span><b>Moodle Plugin Developer Intern</b></span>
+                      <br/>
+                      <span><i>Nephila Web Technology Inc.</i></span>
                       <br />
+                      <span>2019 - 2020</span>
+                      <br/>
+                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                      Consectetur aperiam at adipisci debitis mollitia doloribus
+                      quia consequuntur architecto sed. Nemo, ut omnis commodi
+                      hic similique at possimus cupiditate voluptates harum.
+                    </li>
+                    <li>
+                      <span><b>Moodle Plugin Developer Intern</b></span>
+                      <br/>
+                      <span><i>Nephila Web Technology Inc.</i></span>
+                      <br />
+                      <span>2019 - 2020</span>
+                      <br/>
                       Lorem ipsum dolor, sit amet consectetur adipisicing elit.
                       Consectetur aperiam at adipisci debitis mollitia doloribus
                       quia consequuntur architecto sed. Nemo, ut omnis commodi

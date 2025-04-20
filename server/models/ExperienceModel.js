@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 const ExperienceSchema = new mongoose.Schema(
   {
-    yearStart: { type: String, required: true },
-    yearEnd: { type: String, required: true },
-
-    ExperienceDescription: { type: String, required: true },
+    
+    experienceName: { type: String, required: true },
+    companyName: { type: String, required: true },
+    experienceDate: { type: String, required: true },
+    experienceDescription: { type: String, required: true },
 
   },
   { versionKey: false, timestamps: true }

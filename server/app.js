@@ -9,6 +9,7 @@ const app = express();
 const authRouter = require('./routes/authRoute');
 const userRouter = require('./routes/userRoute');
 const skillRouter = require('./routes/skillRoute');
+const experienceRouter = require('./routes/experienceRoute');
 
 
 //===== ENVIRONMENT VARIABLES ====//
@@ -39,6 +40,7 @@ connectDB(MONGODB_CONNECTION_URL, DB_OPTIONS);
 app.use("/api/auth", authRouter);
 app.use("/api/admin", userRouter);
 app.use("/api/talent", skillRouter);
+app.use("/api/employment", experienceRouter);
 
 //===== GLOBAL ERROR HANDLER ====//
 app.use((err, req, res, next) => {

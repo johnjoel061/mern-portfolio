@@ -58,3 +58,40 @@ exports.deleteSkill = async (req, res, next) => {
     next(new CreateError("Failed to delete Skill", 500));
   }
 };
+
+
+// Controller to update a skill by ID
+exports.updateSkill = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { skillName, skillDescription } = req.body;
+
+    if (!skillName || !skillDescription) {
+      return next(new CreateError("Skill name and description are required", 400));
+    }
+
+    // Check if another skill with the same name already exists (optional check)
+    const existingSkill = await Skill.findOne({ skillName, _id: { $ne: id } });
+    if (existingSkill) {
+      return next(new CreateError("Another skill with this name already exists", 400));
+    }
+
+    const updatedSkill = await Skill.findByIdAndUpdate(
+      id,
+      { skillName, skillDescription },
+      { new: true, runValidators: true }
+    );
+
+    if (!updatedSkill) {
+      return next(new CreateError("Skill not found", 404));
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: updatedSkill,
+    });
+  } catch (error) {
+    next(new CreateError("Failed to update skill", 500));
+  }
+};
+

@@ -13,6 +13,7 @@ import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOu
 import { Box } from "@mui/material";
 import useAddSkill from "../../hooks/SkillHook/useAddSkill";
 import useGetAllSkill from "../../hooks/SkillHook/useGetAllSkill";
+import useUpdateSkill from "../../hooks/SkillHook/useUpdateSkill";
 import axios from "axios";
 
 const Skills = () => {

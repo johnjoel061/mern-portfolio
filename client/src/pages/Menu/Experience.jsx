@@ -11,9 +11,9 @@ import {
 } from "antd";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { Box } from "@mui/material";
-import useAddSkill from "../../hooks/SkillHook/useAddSkill";
-import useGetAllSkill from "../../hooks/SkillHook/useGetAllSkill";
-import useUpdateSkill from "../../hooks/SkillHook/useUpdateSkill";
+// import useAddSkill from "../../hooks/SkillHook/useAddSkill";
+import useGetAllExperience from "../../hooks/ExperienceHook/useGetAllExperience";
+// import useUpdateSkill from "../../hooks/SkillHook/useUpdateSkill";
 import axios from "axios";
 
 const Experience = () => {
@@ -21,9 +21,9 @@ const Experience = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingSkill, setEditingSkill] = useState(null);
 
-  const { loading: addSkillLoading, error, addSkill } = useAddSkill();
-  const { loading: updateLoading, error: updateError, updateSkill } = useUpdateSkill();
-  const { skills, loading, refetchSkills } = useGetAllSkill();
+  // const { loading: addSkillLoading, error, addSkill } = useAddSkill();
+  // const { loading: updateLoading, error: updateError, updateSkill } = useUpdateSkill();
+  const { skills, loading, refetchSkills } = useGetAllExperience();
 
   const [form] = Form.useForm();
   const [editForm] = Form.useForm();
@@ -42,7 +42,7 @@ const Experience = () => {
   // Delete skill handler
   const handleDeleteSkill = async (skillId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/talent/skill/${skillId}`, {
+      await axios.delete(`http://localhost:3000/api/employment/experience/${skillId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

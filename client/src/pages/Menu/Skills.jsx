@@ -18,16 +18,24 @@ import axios from "axios";
 
 const Skills = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editingSkill, setEditingSkill] = useState(null);
+
   const { loading: addSkillLoading, error, addSkill } = useAddSkill();
+  const { loading: updateLoading, error: updateError, updateSkill } = useUpdateSkill();
   const { skills, loading, refetchSkills } = useGetAllSkill();
 
-  // Form submit handler for adding a skill
+  const [form] = Form.useForm();
+  const [editForm] = Form.useForm();
+
+  // Add skill handler
   const handleFormSubmit = async (values) => {
-    const { skillName, skillDescription } = values; // Extract skill name and description from values
-    await addSkill(skillName, skillDescription); // Use the addSkill hook with skill description
+    const { skillName, skillDescription } = values;
+    await addSkill(skillName, skillDescription);
     if (!error) {
-      setIsModalOpen(false); // Close modal on success
-      refetchSkills(); // Refetch skills to update the table
+      setIsModalOpen(false);
+      form.resetFields();
+      refetchSkills();
     }
   };
 
@@ -43,6 +51,26 @@ const Skills = () => {
       refetchSkills();
     } catch (err) {
       message.error("Failed to delete skill");
+    }
+  };
+
+  // Edit skill modal open
+  const handleEdit = (skill) => {
+    setEditingSkill(skill);
+    editForm.setFieldsValue({
+      skillName: skill.skillName,
+      skillDescription: skill.skillDescription,
+    });
+    setIsEditModalOpen(true);
+  };
+
+  // Submit update
+  const handleUpdate = async (values) => {
+    const { skillName, skillDescription } = values;
+    await updateSkill(editingSkill._id, skillName, skillDescription);
+    if (!updateError) {
+      setIsEditModalOpen(false);
+      refetchSkills();
     }
   };
 
@@ -62,16 +90,21 @@ const Skills = () => {
       title: "Actions",
       key: "actions",
       render: (text, record) => (
-        <Popconfirm
-          title="Are you sure you want to delete this skill?"
-          onConfirm={() => handleDeleteSkill(record._id)}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button type="link" danger>
-            Delete
+        <>
+          <Button type="link" onClick={() => handleEdit(record)}>
+            Edit
           </Button>
-        </Popconfirm>
+          <Popconfirm
+            title="Are you sure you want to delete this skill?"
+            onConfirm={() => handleDeleteSkill(record._id)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button type="link" danger>
+              Delete
+            </Button>
+          </Popconfirm>
+        </>
       ),
     },
   ];
@@ -117,28 +150,27 @@ const Skills = () => {
       <Modal
         title="Add New Skill"
         open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
+        onCancel={() => {
+          setIsModalOpen(false);
+          form.resetFields();
+        }}
         footer={null}
       >
-        <Form layout="vertical" onFinish={handleFormSubmit}>
+        <Form layout="vertical" form={form} onFinish={handleFormSubmit}>
           <Form.Item
             label="Skill Name"
-            style={{ fontWeight: "bold" }}
             name="skillName"
             rules={[{ required: true, message: "Please enter the skill name" }]}
-            className="custom-input"
           >
-            <Input className="ant-input" />
+            <Input />
           </Form.Item>
 
           <Form.Item
             label="Skill Description"
-            style={{ fontWeight: "bold" }}
             name="skillDescription"
             rules={[{ required: true, message: "Please enter the skill description" }]}
-            className="custom-input"
           >
-            <Input.TextArea className="ant-input" rows={3} />
+            <Input.TextArea rows={3} />
           </Form.Item>
 
           <Form.Item>
@@ -146,19 +178,56 @@ const Skills = () => {
               type="primary"
               htmlType="submit"
               loading={addSkillLoading}
-              style={{
-                width: "100%",
-                fontWeight: "bold",
-                background: "#0A5E4F",
-              }}
+              style={{ width: "100%", fontWeight: "bold", background: "#0A5E4F" }}
             >
               Add Skill
             </Button>
           </Form.Item>
         </Form>
 
-        {/* Show error message if exists */}
         {error && <Typography.Text type="danger">{error}</Typography.Text>}
+      </Modal>
+
+      {/* Modal for Editing Skill */}
+      <Modal
+        title="Edit Skill"
+        open={isEditModalOpen}
+        onCancel={() => {
+          setIsEditModalOpen(false);
+          editForm.resetFields();
+        }}
+        footer={null}
+      >
+        <Form layout="vertical" form={editForm} onFinish={handleUpdate}>
+          <Form.Item
+            label="Skill Name"
+            name="skillName"
+            rules={[{ required: true, message: "Please enter the skill name" }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            label="Skill Description"
+            name="skillDescription"
+            rules={[{ required: true, message: "Please enter the skill description" }]}
+          >
+            <Input.TextArea rows={3} />
+          </Form.Item>
+
+          <Form.Item>
+            <Button
+              type="primary"
+              htmlType="submit"
+              loading={updateLoading}
+              style={{ width: "100%", fontWeight: "bold", background: "#0A5E4F" }}
+            >
+              Update Skill
+            </Button>
+          </Form.Item>
+        </Form>
+
+        {updateError && <Typography.Text type="danger">{updateError}</Typography.Text>}
       </Modal>
     </Box>
   );

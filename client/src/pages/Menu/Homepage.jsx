@@ -30,10 +30,13 @@ import Image4 from "../../assets/image/img4.jpg";
 
 import useGetAllSkill from "../../hooks/SkillHook/useGetAllSkill";
 import useGetAllExperience from "../../hooks/ExperienceHook/useGetAllExperience";
+import useGetAllEducationHook from "../../hooks/EducationHook/useGetAllEducationHook";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
+
+import { FaGlobe, FaGithub } from "react-icons/fa";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -51,6 +54,8 @@ const Homepage = () => {
   const { skills, skillLoading, refetchSkills } = useGetAllSkill();
   const { experiences, experienceLoading, refetchExperiences } =
     useGetAllExperience();
+  const { education, educationLoading, refetchEducation } =
+    useGetAllEducationHook();
 
   const [activeTab, setActiveTab] = useState("skills");
   const opentab = (tabname) => {
@@ -152,7 +157,7 @@ const Homepage = () => {
               className="description"
             >
               <p>
-                A 4th-year Computer Science student with a keen interest in full
+                A hard-working and geek person with a keen interest in full
                 stack development. Proficient in a range of technologies,
                 including React, Node.js, and MongoDB, I excel at creating
                 comprehensive web applications that cover both front-end and
@@ -287,19 +292,7 @@ const Homepage = () => {
                   ) : (
                     <ul style={{ padding: 0, listStyle: "none" }}>
                       {experiences?.map((exp, index) => (
-                        <li
-                          key={index}
-                          style={{
-                            // borderRadius: "12px",
-                            // background:
-                            //   "linear-gradient(145deg, #212c3b, #1c2532)",
-                            // // boxShadow:
-                            // //   "1px 1px 2px #0c1016",
-                            // padding: "1rem",
-                            // marginBottom: "1rem",
-                            // color: "#fff",
-                          }}
-                        >
+                        <li key={index}>
                           <span>
                             <b>{exp.experienceName}</b>
                           </span>
@@ -308,9 +301,13 @@ const Homepage = () => {
                             <i>{exp.companyName}</i>
                           </span>
                           <br />
-                          <span style={{ fontSize: "13px" }}>{exp.experienceDate}</span>
+                          <span style={{ fontSize: "13px" }}>
+                            {exp.experienceDate}
+                          </span>
                           <br />
-                          <span style={{ color: "#ababab" }}>{exp.experienceDescription}</span>
+                          <span style={{ color: "#ababab" }}>
+                            {exp.experienceDescription}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -327,17 +324,25 @@ const Homepage = () => {
                   }`}
                   id="education"
                 >
-                  <ul>
-                    <li>
-                      <span>2013</span>
-                      <br />
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                      Ipsa nobis amet, praesentium neque necessitatibus
-                      distinctio? Maiores mollitia molestias temporibus odio
-                      delectus quisquam est! Omnis reiciendis velit nulla quo
-                      aperiam repellendus.
-                    </li>
-                  </ul>
+                  {educationLoading ? (
+                    <p>Loading education...</p>
+                  ) : (
+                    <ul>
+                      {education?.map((exp, index) => (
+                        <li key={index}>
+                          <span>
+                            <b>{exp.educationName}</b>
+                          </span>
+                          <br />
+                          <span>
+                            <i>{exp.courseName}</i>
+                          </span>
+                          <br />
+                          <span style={{ color: "#ababab" }}>{exp.educationDate}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </motion.div>
 
                 <div className="tech-stack">
@@ -492,6 +497,24 @@ const Homepage = () => {
 
               <div className="item">
                 <img src={Image4} alt="" />
+
+                <div className="content">
+                  <div className="title">MAGIC SLIDER</div>
+                  <div className="description">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Deleniti temporibus quis eum consequuntur voluptate quae
+                    doloribus distinctio. Possimus, sed recusandae. Lorem ipsum
+                    dolor sit amet consectetur adipisicing elit. Sequi, aut.
+                  </div>
+                  <div className="button">
+                    <button>DEMO</button>
+                    <button>SOURCE CODE</button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="item">
+                <img src={Image3} alt="" />
 
                 <div className="content">
                   <div className="title">MAGIC SLIDER</div>

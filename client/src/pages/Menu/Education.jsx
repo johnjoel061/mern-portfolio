@@ -35,7 +35,6 @@ const Education = () => {
       setIsModalOpen(false);
       form.resetFields();
       refetchEducation();
-      message.success("Education added successfully.");
     }
   };
 

@@ -10,6 +10,7 @@ const authRouter = require('./routes/authRoute');
 const userRouter = require('./routes/userRoute');
 const skillRouter = require('./routes/skillRoute');
 const experienceRouter = require('./routes/experienceRoute');
+const educationRoute = require('./routes/educationRoute');
 
 
 //===== ENVIRONMENT VARIABLES ====//
@@ -41,6 +42,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/admin", userRouter);
 app.use("/api/talent", skillRouter);
 app.use("/api/employment", experienceRouter);
+app.use("/api/school", educationRoute);
 
 //===== GLOBAL ERROR HANDLER ====//
 app.use((err, req, res, next) => {

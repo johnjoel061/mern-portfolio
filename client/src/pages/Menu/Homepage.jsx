@@ -29,6 +29,7 @@ import Image3 from "../../assets/image/img3.jpg";
 import Image4 from "../../assets/image/img4.jpg";
 
 import useGetAllSkill from "../../hooks/SkillHook/useGetAllSkill";
+import useGetAllExperience from "../../hooks/ExperienceHook/useGetAllExperience";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -47,7 +48,9 @@ const Homepage = () => {
     setIsNavOpen(!isNavOpen);
   };
 
-  const { skills, loading, refetchSkills } = useGetAllSkill();
+  const { skills, skillLoading, refetchSkills } = useGetAllSkill();
+  const { experiences, experienceLoading, refetchExperiences } =
+    useGetAllExperience();
 
   const [activeTab, setActiveTab] = useState("skills");
   const opentab = (tabname) => {
@@ -254,7 +257,7 @@ const Homepage = () => {
                   }`}
                   id="skills"
                 >
-                  {loading ? (
+                  {skillLoading ? (
                     <p>Loading skills...</p>
                   ) : (
                     <ul>
@@ -279,32 +282,39 @@ const Homepage = () => {
                   }`}
                   id="experience"
                 >
-                  <ul>
-                    <li>
-                      <span><b>Moodle Plugin Developer Intern</b></span>
-                      <br/>
-                      <span><i>Nephila Web Technology Inc.</i></span>
-                      <br />
-                      <span>2019 - 2020</span>
-                      <br/>
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Consectetur aperiam at adipisci debitis mollitia doloribus
-                      quia consequuntur architecto sed. Nemo, ut omnis commodi
-                      hic similique at possimus cupiditate voluptates harum.
-                    </li>
-                    <li>
-                      <span><b>Moodle Plugin Developer Intern</b></span>
-                      <br/>
-                      <span><i>Nephila Web Technology Inc.</i></span>
-                      <br />
-                      <span>2019 - 2020</span>
-                      <br/>
-                      Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                      Consectetur aperiam at adipisci debitis mollitia doloribus
-                      quia consequuntur architecto sed. Nemo, ut omnis commodi
-                      hic similique at possimus cupiditate voluptates harum.
-                    </li>
-                  </ul>
+                  {experienceLoading ? (
+                    <p>Loading experiences...</p>
+                  ) : (
+                    <ul style={{ padding: 0, listStyle: "none" }}>
+                      {experiences?.map((exp, index) => (
+                        <li
+                          key={index}
+                          style={{
+                            // borderRadius: "12px",
+                            // background:
+                            //   "linear-gradient(145deg, #212c3b, #1c2532)",
+                            // // boxShadow:
+                            // //   "1px 1px 2px #0c1016",
+                            // padding: "1rem",
+                            // marginBottom: "1rem",
+                            // color: "#fff",
+                          }}
+                        >
+                          <span>
+                            <b>{exp.experienceName}</b>
+                          </span>
+                          <br />
+                          <span>
+                            <i>{exp.companyName}</i>
+                          </span>
+                          <br />
+                          <span style={{ fontSize: "13px" }}>{exp.experienceDate}</span>
+                          <br />
+                          <span style={{ color: "#ababab" }}>{exp.experienceDescription}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </motion.div>
 
                 <motion.div

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const ExperienceSchema = new mongoose.Schema(
+const EducationSchema = new mongoose.Schema(
   {
     
     educationName: { type: String, required: true },

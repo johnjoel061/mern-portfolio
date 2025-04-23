@@ -3,7 +3,6 @@ import {
   Button,
   Modal,
   Form,
-  Input,
   Typography,
   Table,
   Popconfirm,
@@ -11,67 +10,72 @@ import {
 } from "antd";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import { Box } from "@mui/material";
-import useAddTechStack from "../../hooks/TechStackHook/useAddTechStack";
 import useGetAllTechStack from "../../hooks/TechStackHook/useGetAllTechStack";
+import useAddTechStack from "../../hooks/TechStackHook/useAddTechStack";
 import useDeleteTechStack from "../../hooks/TechStackHook/useDeleteTechStack";
 
 const TechStack = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const { addTechStack, loading: addLoading } = useAddTechStack();
-  const { images, loading: fetchLoading, refetch } = useGetAllTechStack();
-  const { deleteTechStack, loading: deleteLoading } = useDeleteTechStack();
-
+  const [selectedFile, setSelectedFile] = useState(null);
   const [form] = Form.useForm();
 
-  // Add tech stack handler
-  const handleFormSubmit = async (values) => {
+  const { images, loading: fetchLoading, refetch } = useGetAllTechStack();
+  const { uploadImage, loading: addLoading } = useAddTechStack(refetch); // ✅ Passed refetch
+  const { deleteTechStack, loading: deleteLoading } = useDeleteTechStack();
+
+  const handleFormSubmit = async () => {
     try {
-      await addTechStack(values);
+      if (!selectedFile) {
+        return message.error("Please select an image file!");
+      }
+
+      await uploadImage(selectedFile);
       setIsModalOpen(false);
       form.resetFields();
-      refetch();
+      setSelectedFile(null);
     } catch (error) {
-      message.error('Failed to add new tech stack!');
+      message.error("Failed to add new tech stack!");
     }
   };
 
-  // Delete tech stack handler
   const handleDeleteTechStack = async (id) => {
     try {
       await deleteTechStack(id);
       refetch();
-      message.success('Tech stack deleted successfully!');
+      message.success("Tech stack deleted successfully!");
     } catch (error) {
-      message.error('Failed to delete tech stack!');
+      message.error("Failed to delete tech stack!");
     }
   };
 
-  // Table columns
   const columns = [
     {
       title: "Tech Stack Image",
       dataIndex: "image",
       key: "image",
-      render: (text, record) => (
-        <img
-          src={record.fullUrl} // Use fullUrl to display the image
-          alt="tech stack"
-          style={{ width: 100, height: 100, objectFit: "cover" }}
-        />
-      ),
+      render: (_, record) => (
+        record.fullUrl ? (
+          <img
+            src={record.fullUrl}
+            alt="tech stack"
+            style={{ width: 100, height: 100, objectFit: "cover" }}
+          />
+        ) : (
+          <Typography.Text type="secondary">No Image Available</Typography.Text>
+        )
+      ),      
     },
     {
       title: "Actions",
       key: "actions",
-      render: (text, record) => (
+      render: (_, record) => (
         <Popconfirm
           title="Are you sure you want to delete this tech stack?"
           onConfirm={() => handleDeleteTechStack(record._id)}
           okText="Yes"
           cancelText="No"
         >
-          <Button type="link" danger>
+          <Button type="link" danger loading={deleteLoading}>
             Delete
           </Button>
         </Popconfirm>
@@ -82,18 +86,19 @@ const TechStack = () => {
   return (
     <Box m="20px">
       <Typography.Title level={4}>Add Tech Stack Image</Typography.Title>
-      <Box display="flex" justifyContent="space-between" alignItems="center">
+
+      <Box display="flex" justifyContent="flex-start" mb={2}>
         <Button
           type="primary"
           style={{
             backgroundColor: "#0A5E4F",
             color: "#fff",
-            margin: "0 20px",
+            marginLeft: "20px",
           }}
           onClick={() => setIsModalOpen(true)}
         >
           <AddCircleOutlineOutlinedIcon />
-          <span>New Tech Stack Image</span>
+          <span style={{ marginLeft: "8px" }}>New Tech Stack Image</span>
         </Button>
       </Box>
 
@@ -116,23 +121,27 @@ const TechStack = () => {
         />
       </Box>
 
-      {/* Modal for Adding New Tech Stack Image */}
       <Modal
         title="Add New Tech Stack Image"
         open={isModalOpen}
         onCancel={() => {
           setIsModalOpen(false);
           form.resetFields();
+          setSelectedFile(null);
         }}
         footer={null}
       >
         <Form layout="vertical" form={form} onFinish={handleFormSubmit}>
           <Form.Item
-            label="Tech Stack Image URL"
+            label="Upload Tech Stack Image"
             name="image"
-            rules={[{ required: true, message: "Please enter the image URL" }]}
+            rules={[{ required: true, message: "Please upload an image" }]}
           >
-            <Input />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={(e) => setSelectedFile(e.target.files[0])}
+            />
           </Form.Item>
 
           <Form.Item>
@@ -140,7 +149,11 @@ const TechStack = () => {
               type="primary"
               htmlType="submit"
               loading={addLoading}
-              style={{ width: "100%", fontWeight: "bold", background: "#0A5E4F" }}
+              style={{
+                width: "100%",
+                fontWeight: "bold",
+                background: "#0A5E4F",
+              }}
             >
               Add Image
             </Button>

@@ -10,7 +10,9 @@ exports.uploadImage = async (req, res) => {
 
     res.json({
       url: result.secure_url,
-      public_id: result.public_id
+      public_id: result.public_id,
+      name: req.file.originalname,
+      size: req.file.size
     });
   } catch (error) {
     res.status(500).json({ error: 'Upload failed', details: error });

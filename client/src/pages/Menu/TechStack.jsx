@@ -20,23 +20,30 @@ const TechStack = () => {
   const [form] = Form.useForm();
 
   const { images, loading: fetchLoading, refetch } = useGetAllTechStack();
-  const { uploadImage, loading: addLoading } = useAddTechStack(refetch); // ✅ Passed refetch
   const { deleteTechStack, loading: deleteLoading } = useDeleteTechStack();
+  const { uploadImage, loading: addLoading } = useAddTechStack();
 
   const handleFormSubmit = async () => {
+    if (!selectedFile) {
+      return message.error("Please select an image file!");
+    }
+  
     try {
-      if (!selectedFile) {
-        return message.error("Please select an image file!");
-      }
-
       await uploadImage(selectedFile);
-      setIsModalOpen(false);
+      await refetch(); // Refresh the list after successful upload
+  
+      // Reset modal and form after successful upload
       form.resetFields();
       setSelectedFile(null);
+      setIsModalOpen(false);
+  
+      // Reset the file input value
+      document.getElementById("fileInput").value = "";
     } catch (error) {
-      message.error("Failed to add new tech stack!");
+      console.error("Upload failed", error);
     }
   };
+  
 
   const handleDeleteTechStack = async (id) => {
     try {
@@ -53,7 +60,7 @@ const TechStack = () => {
       title: "Tech Stack Image",
       dataIndex: "image",
       key: "image",
-      render: (_, record) => (
+      render: (_, record) =>
         record.fullUrl ? (
           <img
             src={record.fullUrl}
@@ -62,8 +69,7 @@ const TechStack = () => {
           />
         ) : (
           <Typography.Text type="secondary">No Image Available</Typography.Text>
-        )
-      ),      
+        ),
     },
     {
       title: "Actions",
@@ -131,12 +137,8 @@ const TechStack = () => {
         }}
         footer={null}
       >
-        <Form layout="vertical" form={form} onFinish={handleFormSubmit}>
-          <Form.Item
-            label="Upload Tech Stack Image"
-            name="image"
-            rules={[{ required: true, message: "Please upload an image" }]}
-          >
+        <Form layout="vertical" form={form}>
+          <Form.Item label="Upload Tech Stack Image">
             <input
               type="file"
               accept="image/*"
@@ -147,8 +149,10 @@ const TechStack = () => {
           <Form.Item>
             <Button
               type="primary"
-              htmlType="submit"
+              onClick={handleFormSubmit}
               loading={addLoading}
+              disabled={!selectedFile}
+              htmlType="button"
               style={{
                 width: "100%",
                 fontWeight: "bold",

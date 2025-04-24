@@ -1,10 +1,6 @@
-import { useState, useRef } from "react";
-import {
-  FaPaperPlane,
-  FaFacebook,
-  FaInstagram,
-  FaTiktok,
-} from "react-icons/fa";
+import { useState } from "react";
+import { FileTextOutlined } from "@ant-design/icons";
+
 import SectionTitle from "../../components/SectionTitle";
 import "../styles/header.css";
 import "../styles/home.css";
@@ -23,11 +19,6 @@ import ReactJSImage from "../../assets/physics.png";
 import AboutImage from "../../assets/about.jpg";
 import Resume from "../../assets/my_cv.pdf";
 
-import Image1 from "../../assets/image/img1.jpg";
-import Image2 from "../../assets/image/img2.jpg";
-import Image3 from "../../assets/image/img3.jpg";
-import Image4 from "../../assets/image/img4.jpg";
-
 import useGetAllSkill from "../../hooks/SkillHook/useGetAllSkill";
 import useGetAllExperience from "../../hooks/ExperienceHook/useGetAllExperience";
 import useGetAllEducationHook from "../../hooks/EducationHook/useGetAllEducationHook";
@@ -36,7 +27,15 @@ import useGetAllEducationHook from "../../hooks/EducationHook/useGetAllEducation
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
 
-import { FaGlobe, FaGithub } from "react-icons/fa";
+const { Title, Paragraph, Text, Link } = Typography;
+import { Card, Tag, Button, Typography, Space, Row, Col } from "antd";
+import {
+  GithubOutlined,
+  LinkOutlined,
+  MailOutlined,
+  FacebookFilled,
+} from "@ant-design/icons";
+import { SiTiktok } from "react-icons/si";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -51,6 +50,13 @@ const Homepage = () => {
     setIsNavOpen(!isNavOpen);
   };
 
+  const title = "Portfolio Website";
+  const description =
+    "A personal portfolio to showcase my work, built with React and Ant Design. serter  eger  wrwrwrew ertre errte er rertert ";
+  const techStack = ["React", "Ant Design", "Framer Motion", "Node.js"];
+  const githubUrl = "https://github.com/yourusername/portfolio";
+  const demoUrl = "https://yourportfolio.netlify.app";
+
   const { skills, skillLoading, refetchSkills } = useGetAllSkill();
   const { experiences, experienceLoading, refetchExperiences } =
     useGetAllExperience();
@@ -60,37 +66,6 @@ const Homepage = () => {
   const [activeTab, setActiveTab] = useState("skills");
   const opentab = (tabname) => {
     setActiveTab(tabname);
-  };
-
-  const sliderListRef = useRef(null);
-  const thumbnailRef = useRef(null);
-
-  const moveSlider = (direction) => {
-    const sliderList = sliderListRef.current;
-    const thumbnail = thumbnailRef.current;
-
-    if (sliderList && thumbnail) {
-      const sliderItems = sliderList.querySelectorAll(".item");
-      const thumbnailItems = thumbnail.querySelectorAll(".item");
-
-      if (direction === "next") {
-        sliderList.appendChild(sliderItems[0]);
-        thumbnail.appendChild(thumbnailItems[0]);
-        sliderList.classList.add("next");
-      } else {
-        sliderList.prepend(sliderItems[sliderItems.length - 1]);
-        thumbnail.prepend(thumbnailItems[thumbnailItems.length - 1]);
-        sliderList.classList.add("prev");
-      }
-
-      sliderList.addEventListener(
-        "animationend",
-        () => {
-          sliderList.classList.remove(direction);
-        },
-        { once: true }
-      );
-    }
   };
 
   // Animation settings
@@ -338,7 +313,9 @@ const Homepage = () => {
                             <i>{exp.courseName}</i>
                           </span>
                           <br />
-                          <span style={{ color: "#ababab" }}>{exp.educationDate}</span>
+                          <span style={{ color: "#ababab" }}>
+                            {exp.educationDate}
+                          </span>
                         </li>
                       ))}
                     </ul>
@@ -403,30 +380,160 @@ const Homepage = () => {
               transition={{ duration: 0.8 }}
               className="certification-container"
             >
-              <div className="card">
-                <h3 className="card__title">Responsive Web Certification</h3>
-                <p className="card__content">
-                  Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                  Possimus nemo adipisci corporis eos necessitatibus at, dolores
-                  aliquid ipsa sapiente! Id, fugiat reiciendis tempore itaque
-                  iusto quis quos eius enim ducimus?
-                </p>
-                <div className="card__date">June 12, 2023</div>
-                <div className="card__arrow">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    height="15"
-                    width="15"
+              <Card
+                hoverable
+                style={{
+                  maxWidth: 400,
+                  margin: "1rem auto",
+                  borderRadius: "16px",
+                  boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+                }}
+                bodyStyle={{ padding: "20px" }}
+              >
+                <Title level={4} style={{ marginBottom: "0.5rem" }}>
+                  Web Development Certificate
+                </Title>
+
+                <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
+                  Awarded for completing the Full Stack Web Development Bootcamp
+                  with hands-on projects.
+                </Paragraph>
+
+                <Text
+                  type="secondary"
+                  style={{ display: "block", marginBottom: "1rem" }}
+                >
+                  Date Issued: March 15, 2025
+                </Text>
+
+                <Space>
+                  <Button
+                    type="primary"
+                    icon={<FileTextOutlined />}
+                    href="https://example.com/certificate"
+                    target="_blank"
                   >
-                    <path
-                      fill="#fff"
-                      d="M13.4697 17.9697C13.1768 18.2626 13.1768 18.7374 13.4697 19.0303C13.7626 19.3232 14.2374 19.3232 14.5303 19.0303L20.3232 13.2374C21.0066 12.554 21.0066 11.446 20.3232 10.7626L14.5303 4.96967C14.2374 4.67678 13.7626 4.67678 13.4697 4.96967C13.1768 5.26256 13.1768 5.73744 13.4697 6.03033L18.6893 11.25H4C3.58579 11.25 3.25 11.5858 3.25 12C3.25 12.4142 3.58579 12.75 4 12.75H18.6893L13.4697 17.9697Z"
-                    ></path>
-                  </svg>
-                </div>
-              </div>
+                    View Certificate
+                  </Button>
+                </Space>
+              </Card>
+
+              <Card
+                hoverable
+                style={{
+                  maxWidth: 400,
+                  margin: "1rem auto",
+                  borderRadius: "16px",
+                  boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+                }}
+                bodyStyle={{ padding: "20px" }}
+              >
+                <Title level={4} style={{ marginBottom: "0.5rem" }}>
+                  Web Development Certificate
+                </Title>
+
+                <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
+                  Awarded for completing the Full Stack Web Development Bootcamp
+                  with hands-on projects.
+                </Paragraph>
+
+                <Text
+                  type="secondary"
+                  style={{ display: "block", marginBottom: "1rem" }}
+                >
+                  Date Issued: March 15, 2025
+                </Text>
+
+                <Space>
+                  <Button
+                    type="primary"
+                    icon={<FileTextOutlined />}
+                    href="https://example.com/certificate"
+                    target="_blank"
+                  >
+                    View Certificate
+                  </Button>
+                </Space>
+              </Card>
+
+              <Card
+                hoverable
+                style={{
+                  maxWidth: 400,
+                  margin: "1rem auto",
+                  borderRadius: "16px",
+                  boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+                }}
+                bodyStyle={{ padding: "20px" }}
+              >
+                <Title level={4} style={{ marginBottom: "0.5rem" }}>
+                  Web Development Certificate
+                </Title>
+
+                <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
+                  Awarded for completing the Full Stack Web Development Bootcamp
+                  with hands-on projects.
+                </Paragraph>
+
+                <Text
+                  type="secondary"
+                  style={{ display: "block", marginBottom: "1rem" }}
+                >
+                  Date Issued: March 15, 2025
+                </Text>
+
+                <Space>
+                  <Button
+                    type="primary"
+                    icon={<FileTextOutlined />}
+                    href="https://example.com/certificate"
+                    target="_blank"
+                  >
+                    View Certificate
+                  </Button>
+                </Space>
+              </Card>
+
+              <Card
+                hoverable
+                style={{
+                  maxWidth: 400,
+                  margin: "1rem auto",
+                  borderRadius: "16px",
+                  boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+                }}
+                bodyStyle={{ padding: "20px" }}
+              >
+                <Title level={4} style={{ marginBottom: "0.5rem" }}>
+                  Web Development Certificate
+                </Title>
+
+                <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
+                  Awarded for completing the Full Stack Web Development Bootcamp
+                  with hands-on projects.
+                </Paragraph>
+
+                <Text
+                  type="secondary"
+                  style={{ display: "block", marginBottom: "1rem" }}
+                >
+                  Date Issued: March 15, 2025
+                </Text>
+
+                <Space>
+                  <Button
+                    type="primary"
+                    style={{
+                      backgroundColor: "#1f2937",
+                    }}
+                    icon={<FileTextOutlined />}
+                    href="https://example.com/certificate"
+                    target="_blank"
+                  >
+                    View Certificate
+                  </Button>
+                </Space>
+              </Card>
             </motion.div>
           </div>
         </div>
@@ -459,123 +566,236 @@ const Homepage = () => {
           transition={{ duration: 0.8 }}
           className="slider-container"
         >
-          <div className="slider">
-            <div className="list" ref={sliderListRef}>
-              <div className="item">
-                <img src={Image1} alt="" />
-                <div className="content">
-                  <div className="title">MAGIC SLIDER</div>
-                  <div className="description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Deleniti temporibus quis eum consequuntur voluptate quae
-                    doloribus distinctio. Possimus, sed recusandae. Lorem ipsum
-                    dolor sit amet consectetur adipisicing elit. Sequi, aut.
-                  </div>
-                  <div className="button">
-                    <button>DEMO</button>
-                    <button>SOURCE CODE</button>
-                  </div>
-                </div>
-              </div>
+          <Card
+            hoverable
+            style={{
+              maxWidth: 400,
+              borderRadius: "16px",
+              boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+              margin: "1rem auto",
+            }}
+            bodyStyle={{ padding: "20px" }}
+          >
+            <Title level={4} style={{ marginBottom: "0.5rem" }}>
+              {title}
+            </Title>
+            <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
+              {description}
+            </Paragraph>
 
-              <div className="item">
-                <img src={Image2} alt="" />
-                <div className="content">
-                  <div className="title">MAGIC SLIDER</div>
-                  <div className="description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Deleniti temporibus quis eum consequuntur voluptate quae
-                    doloribus distinctio. Possimus, sed recusandae. Lorem ipsum
-                    dolor sit amet consectetur adipisicing elit. Sequi, aut.
-                  </div>
-                  <div className="button">
-                    <button>DEMO</button>
-                    <button>SOURCE CODE</button>
-                  </div>
-                </div>
-              </div>
+            <Space wrap style={{ marginBottom: "1rem" }}>
+              {techStack.map((tech, index) => (
+                <Tag color="#1f2937" key={index}>
+                  {tech}
+                </Tag>
+              ))}
+            </Space>
 
-              <div className="item">
-                <img src={Image4} alt="" />
+            <Space>
+              <Button
+                type="primary"
+                style={{
+                  backgroundColor: "#1f2937",
+                }}
+                icon={<GithubOutlined />}
+                href={githubUrl}
+                target="_blank"
+              >
+                GitHub
+              </Button>
+              <Button
+                className="custom-demo-btn"
+                type="default"
+                icon={<LinkOutlined />}
+                href={demoUrl}
+                target="_blank"
+              >
+                Live Demo
+              </Button>
+            </Space>
+          </Card>
 
-                <div className="content">
-                  <div className="title">MAGIC SLIDER</div>
-                  <div className="description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Deleniti temporibus quis eum consequuntur voluptate quae
-                    doloribus distinctio. Possimus, sed recusandae. Lorem ipsum
-                    dolor sit amet consectetur adipisicing elit. Sequi, aut.
-                  </div>
-                  <div className="button">
-                    <button>DEMO</button>
-                    <button>SOURCE CODE</button>
-                  </div>
-                </div>
-              </div>
+          <Card
+            hoverable
+            style={{
+              maxWidth: 400,
+              borderRadius: "16px",
+              boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+              margin: "1rem auto",
+            }}
+            bodyStyle={{ padding: "20px" }}
+          >
+            <Title level={4} style={{ marginBottom: "0.5rem" }}>
+              {title}
+            </Title>
+            <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
+              {description}
+            </Paragraph>
 
-              <div className="item">
-                <img src={Image3} alt="" />
+            <Space wrap style={{ marginBottom: "1rem" }}>
+              {techStack.map((tech, index) => (
+                <Tag color="#1f2937" key={index}>
+                  {tech}
+                </Tag>
+              ))}
+            </Space>
 
-                <div className="content">
-                  <div className="title">MAGIC SLIDER</div>
-                  <div className="description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Deleniti temporibus quis eum consequuntur voluptate quae
-                    doloribus distinctio. Possimus, sed recusandae. Lorem ipsum
-                    dolor sit amet consectetur adipisicing elit. Sequi, aut.
-                  </div>
-                  <div className="button">
-                    <button>DEMO</button>
-                    <button>SOURCE CODE</button>
-                  </div>
-                </div>
-              </div>
+            <Space>
+              <Button
+                type="primary"
+                style={{
+                  backgroundColor: "#1f2937",
+                }}
+                icon={<GithubOutlined />}
+                href={githubUrl}
+                target="_blank"
+              >
+                GitHub
+              </Button>
+              <Button
+                className="custom-demo-btn"
+                type="default"
+                icon={<LinkOutlined />}
+                href={demoUrl}
+                target="_blank"
+              >
+                Live Demo
+              </Button>
+            </Space>
+          </Card>
 
-              <div className="item">
-                <img src={Image3} alt="" />
+          <Card
+            hoverable
+            style={{
+              maxWidth: 400,
+              borderRadius: "16px",
+              boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+              margin: "1rem auto",
+            }}
+            bodyStyle={{ padding: "20px" }}
+          >
+            <Title level={4} style={{ marginBottom: "0.5rem" }}>
+              {title}
+            </Title>
+            <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
+              {description}
+            </Paragraph>
 
-                <div className="content">
-                  <div className="title">MAGIC SLIDER</div>
-                  <div className="description">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Deleniti temporibus quis eum consequuntur voluptate quae
-                    doloribus distinctio. Possimus, sed recusandae. Lorem ipsum
-                    dolor sit amet consectetur adipisicing elit. Sequi, aut.
-                  </div>
-                  <div className="button">
-                    <button>DEMO</button>
-                    <button>SOURCE CODE</button>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <Space wrap style={{ marginBottom: "1rem" }}>
+              {techStack.map((tech, index) => (
+                <Tag color="blue" key={index}>
+                  {tech}
+                </Tag>
+              ))}
+            </Space>
 
-            <div className="thumbnail" ref={thumbnailRef}>
-              <div className="item">
-                <img src={Image1} alt="" />
-              </div>
-              <div className="item">
-                <img src={Image2} alt="" />
-              </div>
-              <div className="item">
-                <img src={Image3} alt="" />
-              </div>
-              <div className="item">
-                <img src={Image4} alt="" />
-              </div>
-            </div>
+            <Space>
+              <Button
+                type="primary"
+                icon={<GithubOutlined />}
+                href={githubUrl}
+                target="_blank"
+              >
+                GitHub
+              </Button>
+              <Button
+                type="default"
+                icon={<LinkOutlined />}
+                href={demoUrl}
+                target="_blank"
+              >
+                Live Demo
+              </Button>
+            </Space>
+          </Card>
+          <Card
+            hoverable
+            style={{
+              maxWidth: 400,
+              borderRadius: "16px",
+              boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+              margin: "1rem auto",
+            }}
+            bodyStyle={{ padding: "20px" }}
+          >
+            <Title level={4} style={{ marginBottom: "0.5rem" }}>
+              {title}
+            </Title>
+            <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
+              {description}
+            </Paragraph>
 
-            <div className="nextPrevArrows">
-              <button className="prev" onClick={() => moveSlider("prev")}>
-                {" "}
-                {"<"}{" "}
-              </button>
-              <button className="next" onClick={() => moveSlider("next")}>
-                {" "}
-                {">"}{" "}
-              </button>
-            </div>
-          </div>
+            <Space wrap style={{ marginBottom: "1rem" }}>
+              {techStack.map((tech, index) => (
+                <Tag color="blue" key={index}>
+                  {tech}
+                </Tag>
+              ))}
+            </Space>
+
+            <Space>
+              <Button
+                type="primary"
+                icon={<GithubOutlined />}
+                href={githubUrl}
+                target="_blank"
+              >
+                GitHub
+              </Button>
+              <Button
+                type="default"
+                icon={<LinkOutlined />}
+                href={demoUrl}
+                target="_blank"
+              >
+                Live Demo
+              </Button>
+            </Space>
+          </Card>
+          <Card
+            hoverable
+            style={{
+              maxWidth: 400,
+              borderRadius: "16px",
+              boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+              margin: "1rem auto",
+            }}
+            bodyStyle={{ padding: "20px" }}
+          >
+            <Title level={4} style={{ marginBottom: "0.5rem" }}>
+              {title}
+            </Title>
+            <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
+              {description}
+            </Paragraph>
+
+            <Space wrap style={{ marginBottom: "1rem" }}>
+              {techStack.map((tech, index) => (
+                <Tag color="blue" key={index}>
+                  {tech}
+                </Tag>
+              ))}
+            </Space>
+
+            <Space>
+              <Button
+                type="primary"
+                icon={<GithubOutlined />}
+                href={githubUrl}
+                target="_blank"
+              >
+                GitHub
+              </Button>
+              <Button
+                type="default"
+                icon={<LinkOutlined />}
+                href={demoUrl}
+                target="_blank"
+              >
+                Live Demo
+              </Button>
+            </Space>
+          </Card>
         </motion.div>
       </section>
 
@@ -664,42 +884,211 @@ const Homepage = () => {
       <section className="contact-section" id="contact">
         <div className="contact">
           <div className="container">
-            <div className="row">
-              <div className="contact-left">
-                <motion.h1
-                  initial="hidden"
-                  whileInView="visible"
-                  variants={divVariants}
-                  transition={{ duration: 0.5 }}
-                  className="sub-title"
+      
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                padding: "4rem 1rem",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <Typography.Title
+                level={2}
+                style={{
+                  maxWidth: 700,
+                  color: "#1f2937",
+                  fontWeight: 700,
+                  fontSize: "clamp(1.5rem, 5vw, 2.5rem)",
+                  marginBottom: "1rem",
+                }}
+              >
+                Let’s Connect!
+              </Typography.Title>
+
+              <Typography.Paragraph
+                style={{
+                  maxWidth: 700,
+                  fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
+                  color: "#4b5563",
+                  textAlign: "center",
+                }}
+              >
+                Have a project in mind or just want to say hi? Feel free to
+                reach out — I’m always open to new ideas, collaborations, or
+                just a good conversation.
+              </Typography.Paragraph>
+
+              <motion.div
+                initial="hidden"
+                whileInView="visible"
+                variants={divVariants}
+                transition={{ duration: 0.8 }}
+                style={{
+                  width: "100%",
+                  maxWidth: 600,
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr", // two columns on larger screens
+                  gap: "1.5rem",
+                  padding: "1rem",
+                }}
+                className="responsive-grid"
+              >
+                <Card
+                  hoverable
+                  style={{
+                    maxWidth: 360,
+                    margin: "0 auto",
+                    borderRadius: 16,
+                    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+                    background: "#ffffff",
+                  }}
+                  bodyStyle={{ padding: 20 }}
                 >
-                  Contact Me
-                </motion.h1>
-                <motion.p
-                  initial="hidden"
-                  whileInView="visible"
-                  variants={divVariants}
-                  transition={{ duration: 0.8 }}
+                  <Space align="start">
+                    <MailOutlined
+                      style={{
+                        fontSize: "24px",
+                        color: "#1f2937",
+                        marginTop: 4,
+                      }}
+                    />
+                    <div>
+                      <Text
+                        strong
+                        style={{ fontSize: "16px", color: "#1f2937" }}
+                      >
+                        Email
+                      </Text>
+                      <br />
+                      <Link
+                        href="mailto:youremail@example.com"
+                        style={{ fontSize: "14px", color: "#4b5563" }}
+                      >
+                        youremail@example.com
+                      </Link>
+                    </div>
+                  </Space>
+                </Card>
+
+                <Card
+                  hoverable
+                  style={{
+                    maxWidth: 360,
+                    margin: "0 auto",
+                    borderRadius: 16,
+                    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+                    background: "#ffffff",
+                  }}
+                  bodyStyle={{ padding: 20 }}
                 >
-                  <FaPaperPlane className="email-icon" />
-                  alfabetejohnjoel@gmail.com
-                </motion.p>
-                <div className="social-icons">
-                  <a href="#">
-                    <FaFacebook />
-                  </a>
-                  <a href="#">
-                    <FaInstagram />
-                  </a>
-                  <a href="#">
-                    <FaTiktok />
-                  </a>
-                </div>
-              </div>
+                  <Space align="start">
+                    <FacebookFilled
+                      style={{
+                        fontSize: "24px",
+                        color: "#1f2937",
+                        marginTop: 4,
+                      }}
+                    />
+                    <div>
+                      <Text
+                        strong
+                        style={{ fontSize: "16px", color: "#1f2937" }}
+                      >
+                        Facebook
+                      </Text>
+                      <br />
+                      <Link
+                        href="https://facebook.com/yourprofile"
+                        style={{ fontSize: "14px", color: "#4b5563" }}
+                      >
+                        facebook.com/yourprofile
+                      </Link>
+                    </div>
+                  </Space>
+                </Card>
+
+                <Card
+                  hoverable
+                  style={{
+                    maxWidth: 360,
+                    margin: "0 auto",
+                    borderRadius: 16,
+                    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+                    background: "#ffffff",
+                  }}
+                  bodyStyle={{ padding: 20 }}
+                >
+                  <Space align="start">
+                    <GithubOutlined
+                      style={{
+                        fontSize: "24px",
+                        color: "#1f2937",
+                        marginTop: 4,
+                      }}
+                    />
+                    <div>
+                      <Text
+                        strong
+                        style={{ fontSize: "16px", color: "#1f2937" }}
+                      >
+                        GitHub
+                      </Text>
+                      <br />
+                      <Link
+                        href="https://github.com/yourusername"
+                        style={{ fontSize: "14px", color: "#4b5563" }}
+                      >
+                        github.com/yourusername
+                      </Link>
+                    </div>
+                  </Space>
+                </Card>
+
+                <Card
+                  hoverable
+                  style={{
+                    maxWidth: 360,
+                    margin: "0 auto",
+                    borderRadius: 16,
+                    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
+                    background: "#ffffff",
+                  }}
+                  bodyStyle={{ padding: 20 }}
+                >
+                  <Space align="start">
+                    <SiTiktok
+                      style={{
+                        fontSize: "24px",
+                        color: "#1f2937",
+                        marginTop: 4,
+                      }}
+                    />
+                    <div>
+                      <Text
+                        strong
+                        style={{ fontSize: "16px", color: "#1f2937" }}
+                      >
+                        TikTok
+                      </Text>
+                      <br />
+                      <Link
+                        href="https://tiktok.com/@yourhandle"
+                        style={{ fontSize: "14px", color: "#4b5563" }}
+                      >
+                        tiktok.com/@yourhandle
+                      </Link>
+                    </div>
+                  </Space>
+                </Card>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
+
       <div className="footer">
         <p>
           <a href="#home">© 2024 John Joel Alfabete. All rights reserved.</a>

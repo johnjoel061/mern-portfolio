@@ -1,7 +1,8 @@
 /* about-section */
 .about-section {
   background: var(--text-dark);
-  padding: 5rem;
+  padding-bottom: 3rem;
+  padding-top: 5rem;
 }
 
 .about {
@@ -219,10 +220,14 @@
 }
 
 .certification-container{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+  padding: 1rem 1rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
   
 }

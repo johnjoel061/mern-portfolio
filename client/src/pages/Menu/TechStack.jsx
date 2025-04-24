@@ -77,7 +77,7 @@ const TechStack = () => {
       render: (_, record) => (
         <Popconfirm
           title="Are you sure you want to delete this tech stack?"
-          onConfirm={() => handleDeleteTechStack(record._id)}
+          onConfirm={() => handleDeleteTechStack(record.asset_id)}
           okText="Yes"
           cancelText="No"
         >

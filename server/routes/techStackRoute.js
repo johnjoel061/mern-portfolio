@@ -8,7 +8,7 @@ const {
 } = require('../controllers/techStackController');
 
 router.post('/upload-image', upload.single('image'), uploadImage);
-router.delete('/delete-image/:public_id', deleteImage);
+router.delete('/delete-image/:folder/:public_id', deleteImage);
 router.get('/all-images', getAllImages);
 
 module.exports = router;

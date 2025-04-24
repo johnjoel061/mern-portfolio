@@ -5,10 +5,15 @@ import { message } from 'antd';
 const useDeleteTechStack = () => {
   const [loading, setLoading] = useState(false);
 
-  const deleteTechStack = async (publicId) => {
+  const deleteTechStack = async (asset_id) => {
+    if (!asset_id) {
+      message.error('No asset ID provided for deletion!');
+      return;
+    }
+
     try {
       setLoading(true);
-      const res = await axios.delete(`localhost:3000/api/tech-stack/delete-image/${publicId}`);
+      const res = await axios.delete(`http://localhost:3000/api/tech-stack/delete-image/${asset_id}`);
       message.success('Image deleted successfully!');
       return res.data;
     } catch (err) {

@@ -1,4 +1,5 @@
-const cloudinary = require('../utils/cloudinary');
+// const cloudinary = require('../utils/cloudinary');
+const { v2: cloudinary } = require('cloudinary');
 
 exports.uploadImage = async (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No file uploaded' });
@@ -12,21 +13,34 @@ exports.uploadImage = async (req, res) => {
       url: result.secure_url,
       public_id: result.public_id,
       name: req.file.originalname,
-      size: req.file.size
+      size: req.file.size,
     });
   } catch (error) {
     res.status(500).json({ error: 'Upload failed', details: error });
   }
 };
 
+
 exports.deleteImage = async (req, res) => {
   const publicId = req.params.public_id;
 
   try {
-    await cloudinary.uploader.destroy(publicId);
-    res.json({ message: 'Image deleted successfully' });
+    // Decode the public ID to handle any URL encoding
+    const decodedPublicId = decodeURIComponent(publicId);
+
+    // Destroy the image and invalidate cached versions
+    const result = await cloudinary.uploader.destroy(decodedPublicId, {
+      invalidate: true,
+      resource_type: 'image', // Specify the resource type if it's an image
+    });
+
+    if (result.result === 'ok') {
+      res.json({ message: 'Image deleted successfully' });
+    } else {
+      res.status(404).json({ error: 'Image not found or already deleted' });
+    }
   } catch (error) {
-    res.status(500).json({ error: 'Failed to delete image', details: error });
+    res.status(500).json({ error: 'Failed to delete image', details: error.message });
   }
 };
 

@@ -29,7 +29,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
 
 const { Title, Paragraph, Text, Link } = Typography;
-import { Card, Tag, Button, Typography, Space, Row, Col } from "antd";
+import { Card, Tag, Button, Typography, Space } from "antd";
 import {
   GithubOutlined,
   LinkOutlined,

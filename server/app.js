@@ -12,6 +12,7 @@ const skillRouter = require('./routes/skillRoute');
 const experienceRouter = require('./routes/experienceRoute');
 const educationRoute = require('./routes/educationRoute');
 const techStackRoute = require('./routes/techStackRoute');
+const certificationRoute = require('./routes/certificationRoute');
 
 
 //===== ENVIRONMENT VARIABLES ====//
@@ -45,6 +46,7 @@ app.use("/api/talent", skillRouter);
 app.use("/api/employment", experienceRouter);
 app.use("/api/school", educationRoute);
 app.use("/api/tech-stack", techStackRoute);
+app.use("/api/recognition", certificationRoute);
 
 //===== GLOBAL ERROR HANDLER ====//
 app.use((err, req, res, next) => {

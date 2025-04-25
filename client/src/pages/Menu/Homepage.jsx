@@ -22,6 +22,7 @@ import Resume from "../../assets/my_cv.pdf";
 import useGetAllSkill from "../../hooks/SkillHook/useGetAllSkill";
 import useGetAllExperience from "../../hooks/ExperienceHook/useGetAllExperience";
 import useGetAllEducationHook from "../../hooks/EducationHook/useGetAllEducationHook";
+import useGetAllCertification from "../../hooks/CertificationHook/useGetAllCertification";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -57,11 +58,10 @@ const Homepage = () => {
   const githubUrl = "https://github.com/yourusername/portfolio";
   const demoUrl = "https://yourportfolio.netlify.app";
 
-  const { skills, skillLoading, refetchSkills } = useGetAllSkill();
-  const { experiences, experienceLoading, refetchExperiences } =
-    useGetAllExperience();
-  const { education, educationLoading, refetchEducation } =
-    useGetAllEducationHook();
+  const { skills, skillLoading } = useGetAllSkill();
+  const { experiences, experienceLoading } = useGetAllExperience();
+  const { education, educationLoading } = useGetAllEducationHook();
+  const { certifications, certificateLoading } = useGetAllCertification();
 
   const [activeTab, setActiveTab] = useState("skills");
   const opentab = (tabname) => {
@@ -380,160 +380,71 @@ const Homepage = () => {
               transition={{ duration: 0.8 }}
               className="certification-container"
             >
-              <Card
-                hoverable
-                style={{
-                  maxWidth: 400,
-                  margin: "1rem auto",
-                  borderRadius: "16px",
-                  boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
-                }}
-                bodyStyle={{ padding: "20px" }}
-              >
-                <Title level={4} style={{ marginBottom: "0.5rem" }}>
-                  Web Development Certificate
-                </Title>
+              {certificateLoading ? (
+                <p>Loading certificates...</p>
+              ) : (
+                certifications
+                  ?.sort(
+                    (a, b) =>
+                      new Date(b.certificationDate) -
+                      new Date(a.certificationDate)
+                  )
+                  .map((cert, index) => (
+                    <Card
+                      key={index}
+                      style={{
+                        maxWidth: 400,
+                        margin: "1rem auto",
+                        borderRadius: "16px",
+                        boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+                      }}
+                      bodyStyle={{ padding: "20px" }}
+                    >
+                      <Title level={4} style={{ marginBottom: "0.5rem" }}>
+                        {cert.certificationName}
+                      </Title>
 
-                <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
-                  Awarded for completing the Full Stack Web Development Bootcamp
-                  with hands-on projects.
-                </Paragraph>
+                      <Paragraph
+                        style={{
+                          color: "#595959",
+                          marginBottom: "1rem",
+                          minHeight: "60px", // ensures all descriptions align
+                        }}
+                      >
+                        {cert.certificationDescription}
+                      </Paragraph>
 
-                <Text
-                  type="secondary"
-                  style={{ display: "block", marginBottom: "1rem" }}
-                >
-                  Date Issued: March 15, 2025
-                </Text>
+                      <Text
+                        type="secondary"
+                        style={{ display: "block", marginBottom: "1rem" }}
+                      >
+                        Date Issued:{" "}
+                        {new Date(cert.certificationDate).toLocaleDateString(
+                          "en-US",
+                          {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          }
+                        )}
+                      </Text>
 
-                <Space>
-                  <Button
-                    type="primary"
-                    icon={<FileTextOutlined />}
-                    href="https://example.com/certificate"
-                    target="_blank"
-                  >
-                    View Certificate
-                  </Button>
-                </Space>
-              </Card>
-
-              <Card
-                hoverable
-                style={{
-                  maxWidth: 400,
-                  margin: "1rem auto",
-                  borderRadius: "16px",
-                  boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
-                }}
-                bodyStyle={{ padding: "20px" }}
-              >
-                <Title level={4} style={{ marginBottom: "0.5rem" }}>
-                  Web Development Certificate
-                </Title>
-
-                <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
-                  Awarded for completing the Full Stack Web Development Bootcamp
-                  with hands-on projects.
-                </Paragraph>
-
-                <Text
-                  type="secondary"
-                  style={{ display: "block", marginBottom: "1rem" }}
-                >
-                  Date Issued: March 15, 2025
-                </Text>
-
-                <Space>
-                  <Button
-                    type="primary"
-                    icon={<FileTextOutlined />}
-                    href="https://example.com/certificate"
-                    target="_blank"
-                  >
-                    View Certificate
-                  </Button>
-                </Space>
-              </Card>
-
-              <Card
-                hoverable
-                style={{
-                  maxWidth: 400,
-                  margin: "1rem auto",
-                  borderRadius: "16px",
-                  boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
-                }}
-                bodyStyle={{ padding: "20px" }}
-              >
-                <Title level={4} style={{ marginBottom: "0.5rem" }}>
-                  Web Development Certificate
-                </Title>
-
-                <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
-                  Awarded for completing the Full Stack Web Development Bootcamp
-                  with hands-on projects.
-                </Paragraph>
-
-                <Text
-                  type="secondary"
-                  style={{ display: "block", marginBottom: "1rem" }}
-                >
-                  Date Issued: March 15, 2025
-                </Text>
-
-                <Space>
-                  <Button
-                    type="primary"
-                    icon={<FileTextOutlined />}
-                    href="https://example.com/certificate"
-                    target="_blank"
-                  >
-                    View Certificate
-                  </Button>
-                </Space>
-              </Card>
-
-              <Card
-                hoverable
-                style={{
-                  maxWidth: 400,
-                  margin: "1rem auto",
-                  borderRadius: "16px",
-                  boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
-                }}
-                bodyStyle={{ padding: "20px" }}
-              >
-                <Title level={4} style={{ marginBottom: "0.5rem" }}>
-                  Web Development Certificate
-                </Title>
-
-                <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
-                  Awarded for completing the Full Stack Web Development Bootcamp
-                  with hands-on projects.
-                </Paragraph>
-
-                <Text
-                  type="secondary"
-                  style={{ display: "block", marginBottom: "1rem" }}
-                >
-                  Date Issued: March 15, 2025
-                </Text>
-
-                <Space>
-                  <Button
-                    type="primary"
-                    style={{
-                      backgroundColor: "#1f2937",
-                    }}
-                    icon={<FileTextOutlined />}
-                    href="https://example.com/certificate"
-                    target="_blank"
-                  >
-                    View Certificate
-                  </Button>
-                </Space>
-              </Card>
+                      <Space>
+                        <Button
+                          type="primary"
+                          style={{
+                            backgroundColor: "#1f2937",
+                          }}
+                          icon={<FileTextOutlined />}
+                          href={cert.certificationLink}
+                          target="_blank"
+                        >
+                          View Certificate
+                        </Button>
+                      </Space>
+                    </Card>
+                  ))
+              )}
             </motion.div>
           </div>
         </div>
@@ -567,7 +478,6 @@ const Homepage = () => {
           className="slider-container"
         >
           <Card
-            hoverable
             style={{
               maxWidth: 400,
               borderRadius: "16px",
@@ -884,8 +794,6 @@ const Homepage = () => {
       <section className="contact-section" id="contact">
         <div className="contact">
           <div className="container">
-      
-
             <div
               style={{
                 display: "flex",

@@ -88,6 +88,10 @@ const Certification = () => {
       refetchCertifications();
     }
   };
+
+  const sortedCertifications = certifications.sort((a, b) =>
+    new Date(b.certificationDate) > new Date(a.certificationDate) ? 1 : -1
+  );
   
   const columns = [
     {
@@ -164,7 +168,7 @@ const Certification = () => {
       >
         <Table
           columns={columns}
-          dataSource={certifications}
+          dataSource={sortedCertifications}
           loading={loading}
           rowKey={(record) => record._id}
           pagination={{ pageSize: 10 }}

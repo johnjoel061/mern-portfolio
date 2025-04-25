@@ -23,12 +23,12 @@ import useGetAllSkill from "../../hooks/SkillHook/useGetAllSkill";
 import useGetAllExperience from "../../hooks/ExperienceHook/useGetAllExperience";
 import useGetAllEducationHook from "../../hooks/EducationHook/useGetAllEducationHook";
 import useGetAllCertification from "../../hooks/CertificationHook/useGetAllCertification";
+import useGetAllPortfolio from "../../hooks/PortfolioHook/useGetAllPortfolio";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { motion } from "framer-motion";
 
-const { Title, Paragraph, Text, Link } = Typography;
 import { Card, Tag, Button, Typography, Space } from "antd";
 import {
   GithubOutlined,
@@ -46,22 +46,17 @@ import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 const Homepage = () => {
+  const { Title, Paragraph, Text, Link } = Typography;
   const [isNavOpen, setIsNavOpen] = useState(false);
   const toggleNav = () => {
     setIsNavOpen(!isNavOpen);
   };
 
-  const title = "Portfolio Website";
-  const description =
-    "A personal portfolio to showcase my work, built with React and Ant Design. serter  eger  wrwrwrew ertre errte er rertert ";
-  const techStack = ["React", "Ant Design", "Framer Motion", "Node.js"];
-  const githubUrl = "https://github.com/yourusername/portfolio";
-  const demoUrl = "https://yourportfolio.netlify.app";
-
   const { skills, skillLoading } = useGetAllSkill();
   const { experiences, experienceLoading } = useGetAllExperience();
   const { education, educationLoading } = useGetAllEducationHook();
   const { certifications, certificateLoading } = useGetAllCertification();
+  const { portfolios, portfolioLoading } = useGetAllPortfolio();
 
   const [activeTab, setActiveTab] = useState("skills");
   const opentab = (tabname) => {
@@ -323,15 +318,15 @@ const Homepage = () => {
                 </motion.div>
 
                 <div className="tech-stack">
-                  <motion.h1
+                  <motion.div
                     initial="hidden"
                     whileInView="visible"
                     variants={divVariants}
                     transition={{ duration: 0.5 }}
                     className="sub-title"
                   >
-                    Tech Stack
-                  </motion.h1>
+                    Tools & Technologies
+                  </motion.div>
 
                   <motion.div
                     initial="hidden"
@@ -341,7 +336,9 @@ const Homepage = () => {
                     className="techStack-container"
                   >
                     <div className="techStack-content">
-                      <img src={HTMLImage} alt="" />
+                      {/* <img src={HTMLImage} alt="" /> */}
+                      <i className="fab fa-html5"></i>
+
                     </div>
 
                     <div className="techStack-content">
@@ -477,235 +474,100 @@ const Homepage = () => {
           transition={{ duration: 0.8 }}
           className="slider-container"
         >
-          <Card
+          <div
             style={{
-              maxWidth: 400,
-              borderRadius: "16px",
-              boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
-              margin: "1rem auto",
+              display: "flex",
+              flexWrap: "wrap",
+              justifyContent: "center",
+              gap: "1rem",
             }}
-            bodyStyle={{ padding: "20px" }}
           >
-            <Title level={4} style={{ marginBottom: "0.5rem" }}>
-              {title}
-            </Title>
-            <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
-              {description}
-            </Paragraph>
-
-            <Space wrap style={{ marginBottom: "1rem" }}>
-              {techStack.map((tech, index) => (
-                <Tag color="#1f2937" key={index}>
-                  {tech}
-                </Tag>
-              ))}
-            </Space>
-
-            <Space>
-              <Button
-                type="primary"
+            {portfolios?.map((port, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 50 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.2 }}
                 style={{
-                  backgroundColor: "#1f2937",
+                  flex: "1 1 300px",
+                  maxWidth: "400px",
+                  display: "flex",
                 }}
-                icon={<GithubOutlined />}
-                href={githubUrl}
-                target="_blank"
               >
-                GitHub
-              </Button>
-              <Button
-                className="custom-demo-btn"
-                type="default"
-                icon={<LinkOutlined />}
-                href={demoUrl}
-                target="_blank"
-              >
-                Live Demo
-              </Button>
-            </Space>
-          </Card>
+                <motion.Card
+                  initial={{ opacity: 0, y: 50 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    backgroundColor: "#ffff",
+                    flex: 1,
+                    borderRadius: "16px",
+                    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+                    padding: "20px",
+                  }}
+                  bodyStyle={{
+                    display: "flex",
+                    flexDirection: "column",
+                    flexGrow: 1,
+                  }}
+                >
+                  <div>
+                    <Title level={4} style={{ marginBottom: "0.5rem" }}>
+                      {port.projectTitle}
+                    </Title>
+                    <Paragraph
+                      style={{
+                        color: "#595959",
+                        marginBottom: "1rem",
+                        minHeight: "80px",
+                      }}
+                    >
+                      {port.projectDescription}
+                    </Paragraph>
 
-          <Card
-            hoverable
-            style={{
-              maxWidth: 400,
-              borderRadius: "16px",
-              boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
-              margin: "1rem auto",
-            }}
-            bodyStyle={{ padding: "20px" }}
-          >
-            <Title level={4} style={{ marginBottom: "0.5rem" }}>
-              {title}
-            </Title>
-            <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
-              {description}
-            </Paragraph>
+                    <Space
+                      wrap
+                      style={{
+                        marginBottom: "1rem",
+                        minHeight: "30px",
+                      }}
+                    >
+                      {port.projectTechStack.map((tech, i) => (
+                        <Tag color="#1f2937" key={i}>
+                          {tech}
+                        </Tag>
+                      ))}
+                    </Space>
+                  </div>
 
-            <Space wrap style={{ marginBottom: "1rem" }}>
-              {techStack.map((tech, index) => (
-                <Tag color="#1f2937" key={index}>
-                  {tech}
-                </Tag>
-              ))}
-            </Space>
-
-            <Space>
-              <Button
-                type="primary"
-                style={{
-                  backgroundColor: "#1f2937",
-                }}
-                icon={<GithubOutlined />}
-                href={githubUrl}
-                target="_blank"
-              >
-                GitHub
-              </Button>
-              <Button
-                className="custom-demo-btn"
-                type="default"
-                icon={<LinkOutlined />}
-                href={demoUrl}
-                target="_blank"
-              >
-                Live Demo
-              </Button>
-            </Space>
-          </Card>
-
-          <Card
-            hoverable
-            style={{
-              maxWidth: 400,
-              borderRadius: "16px",
-              boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
-              margin: "1rem auto",
-            }}
-            bodyStyle={{ padding: "20px" }}
-          >
-            <Title level={4} style={{ marginBottom: "0.5rem" }}>
-              {title}
-            </Title>
-            <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
-              {description}
-            </Paragraph>
-
-            <Space wrap style={{ marginBottom: "1rem" }}>
-              {techStack.map((tech, index) => (
-                <Tag color="blue" key={index}>
-                  {tech}
-                </Tag>
-              ))}
-            </Space>
-
-            <Space>
-              <Button
-                type="primary"
-                icon={<GithubOutlined />}
-                href={githubUrl}
-                target="_blank"
-              >
-                GitHub
-              </Button>
-              <Button
-                type="default"
-                icon={<LinkOutlined />}
-                href={demoUrl}
-                target="_blank"
-              >
-                Live Demo
-              </Button>
-            </Space>
-          </Card>
-          <Card
-            hoverable
-            style={{
-              maxWidth: 400,
-              borderRadius: "16px",
-              boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
-              margin: "1rem auto",
-            }}
-            bodyStyle={{ padding: "20px" }}
-          >
-            <Title level={4} style={{ marginBottom: "0.5rem" }}>
-              {title}
-            </Title>
-            <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
-              {description}
-            </Paragraph>
-
-            <Space wrap style={{ marginBottom: "1rem" }}>
-              {techStack.map((tech, index) => (
-                <Tag color="blue" key={index}>
-                  {tech}
-                </Tag>
-              ))}
-            </Space>
-
-            <Space>
-              <Button
-                type="primary"
-                icon={<GithubOutlined />}
-                href={githubUrl}
-                target="_blank"
-              >
-                GitHub
-              </Button>
-              <Button
-                type="default"
-                icon={<LinkOutlined />}
-                href={demoUrl}
-                target="_blank"
-              >
-                Live Demo
-              </Button>
-            </Space>
-          </Card>
-          <Card
-            hoverable
-            style={{
-              maxWidth: 400,
-              borderRadius: "16px",
-              boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
-              margin: "1rem auto",
-            }}
-            bodyStyle={{ padding: "20px" }}
-          >
-            <Title level={4} style={{ marginBottom: "0.5rem" }}>
-              {title}
-            </Title>
-            <Paragraph style={{ color: "#595959", marginBottom: "1rem" }}>
-              {description}
-            </Paragraph>
-
-            <Space wrap style={{ marginBottom: "1rem" }}>
-              {techStack.map((tech, index) => (
-                <Tag color="blue" key={index}>
-                  {tech}
-                </Tag>
-              ))}
-            </Space>
-
-            <Space>
-              <Button
-                type="primary"
-                icon={<GithubOutlined />}
-                href={githubUrl}
-                target="_blank"
-              >
-                GitHub
-              </Button>
-              <Button
-                type="default"
-                icon={<LinkOutlined />}
-                href={demoUrl}
-                target="_blank"
-              >
-                Live Demo
-              </Button>
-            </Space>
-          </Card>
+                  <Space style={{ marginTop: "auto" }}>
+                    <Button
+                      type="primary"
+                      style={{ backgroundColor: "#1f2937" }}
+                      icon={<GithubOutlined />}
+                      href={port.projectGithubUrl}
+                      target="_blank"
+                    >
+                      GitHub
+                    </Button>
+                    <Button
+                      className="custom-demo-btn"
+                      type="default"
+                      icon={<LinkOutlined />}
+                      href={port.projectDemoUrl}
+                      target="_blank"
+                    >
+                      Live Demo
+                    </Button>
+                  </Space>
+                </motion.Card>
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </section>
 

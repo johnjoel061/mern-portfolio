@@ -39,6 +39,8 @@ import SassImage from "../../assets/technologies/sass.png";
 import AboutImage from "../../assets/about.jpg";
 import Resume from "../../assets/my_cv.pdf";
 
+import Testimonial1 from "../../assets/testimonials/testimonial1.jpg";
+
 import useGetAllSkill from "../../hooks/SkillHook/useGetAllSkill";
 import useGetAllExperience from "../../hooks/ExperienceHook/useGetAllExperience";
 import useGetAllEducationHook from "../../hooks/EducationHook/useGetAllEducationHook";
@@ -670,42 +672,19 @@ const Homepage = () => {
             <div className="testimonial-container">
               <figure className="snip1157 hover">
                 <blockquote>
-                  Thank you. before I begin, I'd like everyone to notice that my
-                  report is in a professional, clear plastic binder...When a
-                  report looks this good, you know it'll get an A. That's a tip
-                  kids. Write it down.
+                  John Joel, is truly an exceptional programmer whose dedication
+                  to quality and user experience sets him apart in the tech
+                  industry. He possesses a rare combination of technical
+                  expertise and an unwavering commitment to delivering
+                  outstanding results.
                   <div className="arrow"></div>
                 </blockquote>
-                <img
-                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sq-sample27.jpg"
-                  alt="sq-sample27"
-                />
+                <img src={Testimonial1} alt="sq-sample27" />
                 <div className="author">
                   <h5>
-                    Max Conversion<span> LIttleSnippets.net</span>
-                  </h5>
-                </div>
-              </figure>
-            </div>
-          </SwiperSlide>
-
-          <SwiperSlide>
-            <div className="testimonial-container">
-              <figure className="snip1157 hover">
-                <blockquote>
-                  Thank you. before I begin, I'd like everyone to notice that my
-                  report is in a professional, clear plastic binder...When a
-                  report looks this good, you know it'll get an A. That's a tip
-                  kids. Write it down.
-                  <div className="arrow"></div>
-                </blockquote>
-                <img
-                  src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sq-sample27.jpg"
-                  alt="sq-sample27"
-                />
-                <div className="author">
-                  <h5>
-                    Max Conversion<span> LIttleSnippets.net</span>
+                    Randy D. Bello <i>INSTRUCTOR I</i>
+                    <span> DEBESMSCAT</span>
+                    <br />
                   </h5>
                 </div>
               </figure>

@@ -12,7 +12,6 @@ import User from './pages/Menu/User';
 import Skills from './pages/Menu/Skills';
 import Experience from './pages/Menu/Experience';
 import Education from './pages/Menu/Education';
-import TechStack from './pages/Menu/TechStack';
 import Certification from './pages/Menu/Certification';
 import Portfolio from './pages/Menu/Portfolio';
 import Testimonial from './pages/Menu/Testimonial';
@@ -46,7 +45,6 @@ const App = () => {
             <Route path="/skills" element={isAuthenticated && userData.role === 'ADMIN' ? <Skills /> : <Navigate to="/" />} />
             <Route path="/experience" element={isAuthenticated && userData.role === 'ADMIN' ? <Experience /> : <Navigate to="/" />} />
             <Route path="/education" element={isAuthenticated && userData.role === 'ADMIN' ? <Education /> : <Navigate to="/" />} />
-            <Route path="/tech-stack" element={isAuthenticated && userData.role === 'ADMIN' ? <TechStack /> : <Navigate to="/" />} />
             <Route path="/certifications" element={isAuthenticated && userData.role === 'ADMIN' ? <Certification /> : <Navigate to="/" />} />
             <Route path="/portfolio" element={isAuthenticated && userData.role === 'ADMIN' ? <Portfolio /> : <Navigate to="/" />} />
             <Route path="/testimonials" element={isAuthenticated && userData.role === 'ADMIN' ? <Testimonial /> : <Navigate to="/" />} />

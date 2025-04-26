@@ -336,9 +336,7 @@ const Homepage = () => {
                     className="techStack-container"
                   >
                     <div className="techStack-content">
-                      {/* <img src={HTMLImage} alt="" /> */}
-                      <i className="fab fa-html5"></i>
-
+                      <img src={HTMLImage} alt="" />
                     </div>
 
                     <div className="techStack-content">

@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import SchoolIcon from "@mui/icons-material/School";
-import CodeIcon from "@mui/icons-material/Code";
 import VerifiedIcon from "@mui/icons-material/Verified";
 import FolderIcon from "@mui/icons-material/Folder";
 import RateReviewIcon from "@mui/icons-material/RateReview";
@@ -119,7 +118,7 @@ const AdminSidebar = () => {
 
           <Divider />
 
-          <Box paddingLeft={"1%"}>
+          <Box paddingLeft={"1%"} sx={{ height: "100vh" }}>
             <Item
               title="User"
               to="/user"
@@ -145,13 +144,6 @@ const AdminSidebar = () => {
               title="Education"
               to="/education"
               icon={<SchoolIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Tech Stack"
-              to="tech-stack"
-              icon={<CodeIcon />}
               selected={selected}
               setSelected={setSelected}
             />

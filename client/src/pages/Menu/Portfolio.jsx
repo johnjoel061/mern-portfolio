@@ -22,7 +22,8 @@ const Portfolio = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingPortfolio, setEditingPortfolio] = useState(null);
   const [techStack, setTechStack] = useState([]); // State for tech stack array
-  const [newTech, setNewTech] = useState(""); // State for new tech stack input
+  const [newTech, setNewTech] = useState(""); // For Add Modal
+  const [editNewTech, setEditNewTech] = useState(""); // For Edit Modal
 
   const {
     addPortfolio,
@@ -63,6 +64,18 @@ const Portfolio = () => {
     }
   };
 
+  // Add tech in Edit Modal
+  const handleAddTechStackInEdit = () => {
+    if (editNewTech && !techStack.includes(editNewTech)) {
+      setTechStack([...techStack, editNewTech]);
+      setEditNewTech("");
+    } else {
+      message.error(
+        "Please enter a valid tech stack or tech stack already exists."
+      );
+    }
+  };
+
   // Remove tech stack item from the list
   const handleRemoveTechStack = (tech) => {
     setTechStack(techStack.filter((item) => item !== tech));
@@ -92,7 +105,8 @@ const Portfolio = () => {
       projectGithubUrl: portfolio.projectGithubUrl,
       projectDemoUrl: portfolio.projectDemoUrl,
     });
-    setTechStack(portfolio.projectTechStack); // Set tech stack for editing
+    setTechStack(portfolio.projectTechStack || []);
+    setEditNewTech(""); // Reset the edit new tech input
     setIsEditModalOpen(true);
   };
 
@@ -190,6 +204,8 @@ const Portfolio = () => {
         />
       </Box>
 
+
+
       {/* Modal for Adding Portfolio */}
       <Modal
         title="Add New Portfolio"
@@ -266,8 +282,8 @@ const Portfolio = () => {
                 display: "flex",
                 flexWrap: "wrap",
                 gap: "5px",
-                overflowY: "auto", // Adds scrolling if there are too many tags
-                maxHeight: "100px", // Adjust this height to your preference
+                overflowY: "auto", 
+                maxHeight: "100px",
               }}
             >
               {techStack.map((tech, index) => (
@@ -304,6 +320,8 @@ const Portfolio = () => {
           <Typography.Text type="danger">{addError}</Typography.Text>
         )}
       </Modal>
+
+
 
       {/* Modal for Editing Portfolio */}
       <Modal
@@ -357,14 +375,31 @@ const Portfolio = () => {
           </Form.Item>
 
           <Form.Item label="Tech Stack">
+            <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+              <Input
+                value={editNewTech}
+                onChange={(e) => setEditNewTech(e.target.value)}
+                placeholder="Enter a tech stack"
+                style={{ width: "70%" }}
+              />
+              <Button
+                type="primary"
+                onClick={handleAddTechStackInEdit}
+                style={{ marginLeft: "10px" }}
+              >
+                Add Tech
+              </Button>
+            </div>
+
+            {/* Display tech stack tags in edit modal */}
             <div
               style={{
-                marginBottom: "10px",
+                marginTop: "10px",
                 display: "flex",
                 flexWrap: "wrap",
                 gap: "5px",
-                overflowY: "auto", // Add scroll if there are too many tags
-                maxHeight: "100px", // Adjust this based on how many items you expect to display
+                overflowY: "auto", // Adds scrolling if there are too many tags
+                maxHeight: "100px", // or just remove it
               }}
             >
               {techStack.map((tech, index) => (
@@ -372,16 +407,15 @@ const Portfolio = () => {
                   key={index}
                   closable
                   onClose={() => handleRemoveTechStack(tech)}
-                  style={{
-                    marginBottom: "5px",
-                  }}
+                  style={{ marginBottom: "5px" }}
                 >
                   {tech}
                 </Tag>
               ))}
             </div>
+          </Form.Item>
 
-            {/* Update Button */}
+          <Form.Item>
             <Button
               type="primary"
               htmlType="submit"
@@ -390,7 +424,6 @@ const Portfolio = () => {
                 width: "100%",
                 fontWeight: "bold",
                 background: "#0A5E4F",
-                marginTop: "10px",
               }}
             >
               Update Portfolio

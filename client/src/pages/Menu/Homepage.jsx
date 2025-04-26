@@ -1,7 +1,16 @@
 import { useState } from "react";
-import { FileTextOutlined } from "@ant-design/icons";
-
 import SectionTitle from "../../components/SectionTitle";
+import { Card, Tag, Button, Typography, Space } from "antd";
+import {
+  GithubOutlined,
+  LinkOutlined,
+  MailOutlined,
+  FacebookFilled,
+  FileTextOutlined,
+} from "@ant-design/icons";
+import { SiTiktok } from "react-icons/si";
+import { motion } from "framer-motion";
+
 import "../styles/header.css";
 import "../styles/home.css";
 import "../styles/about.css";
@@ -11,11 +20,22 @@ import "../styles/contact.css";
 import "../styles/footer.css";
 
 import Profile from "../../assets/profile.jpg";
-import HTMLImage from "../../assets/html-5.png";
-import CSSImage from "../../assets/css-3.png";
-import JavaScriptImage from "../../assets/js.png";
-import PythonImage from "../../assets/python.png";
-import ReactJSImage from "../../assets/physics.png";
+import HTMLImage from "../../assets/technologies/html.png";
+import CSSImage from "../../assets/technologies/css.png";
+import JavaScriptImage from "../../assets/technologies/JavaScrip.png";
+import PythonImage from "../../assets/technologies/python.png";
+import PhpImage from "../../assets/technologies/php.png";
+import CsharpImage from "../../assets/technologies/Csharp.png";
+import ReactJSImage from "../../assets/technologies/REACT.png";
+import NodeJSImage from "../../assets/technologies/node.png";
+import MongoDBImage from "../../assets/technologies/mongoDB.png";
+import MySQLImage from "../../assets/technologies/mysql.png";
+import GitImage from "../../assets/technologies/git.png";
+import UbuntuImage from "../../assets/technologies/Ubuntu.png";
+import BootstrapImage from "../../assets/technologies/bootstrap.png";
+import TailwindImage from "../../assets/technologies/tailwind.png";
+import SassImage from "../../assets/technologies/sass.png";
+
 import AboutImage from "../../assets/about.jpg";
 import Resume from "../../assets/my_cv.pdf";
 
@@ -27,23 +47,10 @@ import useGetAllPortfolio from "../../hooks/PortfolioHook/useGetAllPortfolio";
 
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import { motion } from "framer-motion";
-
-import { Card, Tag, Button, Typography, Space } from "antd";
-import {
-  GithubOutlined,
-  LinkOutlined,
-  MailOutlined,
-  FacebookFilled,
-} from "@ant-design/icons";
-import { SiTiktok } from "react-icons/si";
-
+import { Autoplay, Pagination, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-
-// import required modules
-import { Autoplay, Pagination, Navigation } from "swiper/modules";
 
 const Homepage = () => {
   const { Title, Paragraph, Text, Link } = Typography;
@@ -62,6 +69,9 @@ const Homepage = () => {
   const opentab = (tabname) => {
     setActiveTab(tabname);
   };
+
+  const [showAll, setShowAll] = useState(false);
+  const displayedSkills = showAll ? skills : skills?.slice(0, 4);
 
   // Animation settings
   const divVariants = {
@@ -184,10 +194,15 @@ const Homepage = () => {
                   variants={divVariants}
                   transition={{ duration: 0.8 }}
                 >
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                  soluta quidem, optio fuga et ducimus beatae sunt praesentium,
-                  culpa placeat hic quo saepe! Dolor ut praesentium quibusdam
-                  consequuntur laborum molestias!
+                  A versatile and passionate individual with a strong technical
+                  foundation in JavaScript, Python, C#, PHP, and full-stack
+                  development using MongoDB, ExpressJS, React, and Node.js, as
+                  well as MySQL. Known for excellent teamwork, problem-solving
+                  abilities, and adaptability, I thrive in collaborative
+                  environments and manage time effectively. Outside of tech, I
+                  enjoy building personal projects, reading, and exploring
+                  investment opportunities. Good in English, and Filipino
+                  language.
                 </motion.p>
                 <motion.div
                   initial="hidden"
@@ -235,15 +250,31 @@ const Homepage = () => {
                   {skillLoading ? (
                     <p>Loading skills...</p>
                   ) : (
-                    <ul>
-                      {skills?.map((skill, index) => (
-                        <li key={index}>
-                          <span>{skill.skillName}</span>
-                          <br />
-                          {skill.skillDescription}
-                        </li>
-                      ))}
-                    </ul>
+                    <>
+                      <ul>
+                        {displayedSkills?.map((skill, index) => (
+                          <li key={index}>
+                            <span>
+                              <b>{skill.skillName}</b>
+                            </span>
+                            <br />
+                            {skill.skillDescription}
+                          </li>
+                        ))}
+                      </ul>
+
+                      {skills?.length > 4 && (
+                        <div className="mt-4 text-center">
+                          <Button
+                            type="link"
+                            onClick={() => setShowAll(!showAll)}
+                            style={{ fontWeight: 500, padding: 0 }}
+                          >
+                            {showAll ? "Show Less" : "See All"}
+                          </Button>
+                        </div>
+                      )}
+                    </>
                   )}
                 </motion.div>
 
@@ -348,19 +379,51 @@ const Homepage = () => {
                     </div>
 
                     <div className="techStack-content">
-                      <img src={CSSImage} alt="" />
-                    </div>
-
-                    <div className="techStack-content">
-                      <img src={JavaScriptImage} alt="" />
-                    </div>
-
-                    <div className="techStack-content">
                       <img src={PythonImage} alt="" />
                     </div>
 
                     <div className="techStack-content">
+                      <img src={CsharpImage} alt="" />
+                    </div>
+
+                    <div className="techStack-content">
+                      <img src={PhpImage} alt="" />
+                    </div>
+
+                    <div className="techStack-content">
                       <img src={ReactJSImage} alt="" />
+                    </div>
+
+                    <div className="techStack-content">
+                      <img src={NodeJSImage} alt="" />
+                    </div>
+
+                    <div className="techStack-content">
+                      <img src={MongoDBImage} alt="" />
+                    </div>
+
+                    <div className="techStack-content">
+                      <img src={MySQLImage} alt="" />
+                    </div>
+
+                    <div className="techStack-content">
+                      <img src={UbuntuImage} alt="" />
+                    </div>
+
+                    <div className="techStack-content">
+                      <img src={GitImage} alt="" />
+                    </div>
+
+                    <div className="techStack-content">
+                      <img src={BootstrapImage} alt="" />
+                    </div>
+
+                    <div className="techStack-content">
+                      <img src={TailwindImage} alt="" />
+                    </div>
+
+                    <div className="techStack-content">
+                      <img src={SassImage} alt="" />
                     </div>
                   </motion.div>
                 </div>
@@ -696,7 +759,7 @@ const Homepage = () => {
                 transition={{ duration: 0.8 }}
                 style={{
                   width: "100%",
-                  maxWidth: 600,
+                  maxWidth: 700,
                   display: "grid",
                   gridTemplateColumns: "1fr 1fr", // two columns on larger screens
                   gap: "1.5rem",
@@ -732,10 +795,12 @@ const Homepage = () => {
                       </Text>
                       <br />
                       <Link
-                        href="mailto:youremail@example.com"
+                        href="mailto:alfabetejohnjoel@gmail.com"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={{ fontSize: "14px", color: "#4b5563" }}
                       >
-                        youremail@example.com
+                        alfabetejohnjoel@gmail.com
                       </Link>
                     </div>
                   </Space>
@@ -769,10 +834,12 @@ const Homepage = () => {
                       </Text>
                       <br />
                       <Link
-                        href="https://facebook.com/yourprofile"
+                        href="https://www.facebook.com/johnjoel.alfabete"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={{ fontSize: "14px", color: "#4b5563" }}
                       >
-                        facebook.com/yourprofile
+                        facebook.com/johnjoel.alfabete
                       </Link>
                     </div>
                   </Space>
@@ -806,10 +873,12 @@ const Homepage = () => {
                       </Text>
                       <br />
                       <Link
-                        href="https://github.com/yourusername"
+                        href="https://github.com/johnjoel061"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={{ fontSize: "14px", color: "#4b5563" }}
                       >
-                        github.com/yourusername
+                        github.com/johnjoel061
                       </Link>
                     </div>
                   </Space>
@@ -843,10 +912,12 @@ const Homepage = () => {
                       </Text>
                       <br />
                       <Link
-                        href="https://tiktok.com/@yourhandle"
+                        href="https://tiktok.com/@_joeldev10"
+                        target="_blank"
+                        rel="noopener noreferrer"
                         style={{ fontSize: "14px", color: "#4b5563" }}
                       >
-                        tiktok.com/@yourhandle
+                        tiktok.com/@_joeldev10
                       </Link>
                     </div>
                   </Space>

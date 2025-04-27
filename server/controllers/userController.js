@@ -63,7 +63,6 @@ exports.getUserById = async (req, res, next) => {
   }
 };
 
-
 // Update User By ID
 exports.updateUserById = async (req, res, next) => {
   try {
@@ -160,3 +159,5 @@ exports.deleteUserById = async (req, res, next) => {
     next(new createError(500, error.message));
   }
 };
+
+

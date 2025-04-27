@@ -8,7 +8,7 @@ const useAddExperience = () => {
   const addExperience = async (experienceData, onSuccess) => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:3000/api/employment/experience/add", experienceData);
+      const response = await axios.post("https://mern-portfolio-backend-ef1q.onrender.com/api/employment/experience/add", experienceData);
       message.success("Experience added successfully!");
       if (onSuccess) onSuccess(response.data);
     } catch (error) {

@@ -8,7 +8,7 @@ const useUpdateEducation = () => {
   const updateEducation = async (id, updatedData, onSuccess) => {
     setLoading(true);
     try {
-      const response = await axios.put(`http://localhost:3000/api/school/education/update/${id}`, updatedData);
+      const response = await axios.put(`https://mern-portfolio-backend-ef1q.onrender.com/api/school/education/update/${id}`, updatedData);
       message.success("Education updated successfully!");
       if (onSuccess) onSuccess(response.data);
     } catch (error) {

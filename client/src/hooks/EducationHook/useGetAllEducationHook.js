@@ -9,7 +9,7 @@ const useFetchEducation = () => {
   const fetchEducation = useCallback(async () => {
     setLoading(true);
     try {
-      const response = await axios.get('http://localhost:3000/api/school/education/all', {
+      const response = await axios.get('https://mern-portfolio-backend-ef1q.onrender.com/api/school/education/all', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }

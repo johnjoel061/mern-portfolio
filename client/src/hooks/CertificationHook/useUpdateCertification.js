@@ -9,7 +9,7 @@ const useUpdateCertification = () => {
     setLoading(true);
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/recognition/certification/update/${id}`,
+        `https://mern-portfolio-backend-ef1q.onrender.com/api/recognition/certification/update/${id}`,
         updatedData
       );
       message.success("Certification updated successfully!");

@@ -22,7 +22,12 @@ dotenv.config({ path: path.join(__dirname, "./.env") });
 const connectDB = require("./confiq/db");
 
 //===== MIDDLEWARE ====//
-app.use(cors());
+// CORS setup
+app.use(cors({
+  origin: 'https://mern-portfolio-frontend-32jc.onrender.com',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true,
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true })); // For parsing application/x-www-form-urlencoded
 

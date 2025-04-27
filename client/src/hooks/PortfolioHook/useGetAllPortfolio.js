@@ -9,7 +9,7 @@ const useFetchPortfolios = () => {
   const fetchPortfolios = useCallback(async () => {
     setLoading(true); // Ensure loading state is true when refetching
     try {
-      const response = await axios.get('http://localhost:3000/api/projects/portfolio/all', {
+      const response = await axios.get('https://mern-portfolio-backend-ef1q.onrender.com/api/projects/portfolio/all', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }

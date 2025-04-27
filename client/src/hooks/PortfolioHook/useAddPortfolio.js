@@ -8,7 +8,7 @@ const useAddPortfolio = () => {
   const addPortfolio = async (portfolioData, onSuccess) => {
     setLoading(true);
     try {
-      const response = await axios.post("http://localhost:3000/api/projects/portfolio/add", portfolioData);
+      const response = await axios.post("https://mern-portfolio-backend-ef1q.onrender.com/api/projects/portfolio/add", portfolioData);
       message.success("Portfolio project added successfully!");
       if (onSuccess) onSuccess(response.data);
     } catch (error) {

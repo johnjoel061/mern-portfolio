@@ -2,64 +2,53 @@ const User = require("../models/userModel");
 const createError = require("../utils/appError");
 const crypto = require("crypto");
 require("dotenv").config(); // Load environment variables
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
-const fs = require("fs");
-const path = require("path");
-
-
 
 // Register User
 exports.signup = async (req, res, next) => {
-  upload(req, res, async (err) => {
-    if (err) {
-      return next(new createError(err, 400));
+  try {
+    // Check if user already exists
+    const user = await User.findOne({ email: req.body.email });
+
+    if (user) {
+      return next(new createError("User already exists!", 400));
     }
 
-    try {
-      // Check if user already exists
-      const user = await User.findOne({ email: req.body.email });
+    // Hash the password---------NEED TO CHANGE IF CLIENT REQUEST
+    const hashedPassword = await bcrypt.hash(req.body.password, 12);
 
-      if (user) {
-        return next(new createError("User already exists!", 400));
-      }
+    // Create new user
+    const newUser = await User.create({
+      ...req.body,
+      password: hashedPassword,
+    });
 
-      // Hash the password---------NEED TO CHANGE IF CLIENT REQUEST
-      const hashedPassword = await bcrypt.hash(req.body.password, 12);
+    // Assign JWT (JSON Web Token)
+    const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SECRET_KEY, {
+      expiresIn: "7 days",
+    });
 
-
-      // Create new user
-      const newUser = await User.create({
-        ...req.body,
-        password: hashedPassword,
-      });
-
-      // Assign JWT (JSON Web Token)
-      const token = jwt.sign({ _id: newUser._id }, process.env.JWT_SECRET_KEY, {
-        expiresIn: "7 days",
-      });
-
-      // Respond with the token
-      res.status(201).json({
-        status: "success",
-        message: "New ADMIN registered successfully",
-        token,
-        user: {
-          _id: newUser._id,
-          firstName: newUser.firstName,
-          lastName: newUser.lastName,
-          middleName: newUser.middleName,
-          email: newUser.email,
-          role: newUser.role,
-          createdAt: newUser.createdAt,
-          updatedAt: newUser.updatedAt,
-        },
-      });
-    } catch (error) {
-      next(error);
-    }
-  });
+    // Respond with the token
+    res.status(201).json({
+      status: "success",
+      message: "New ADMIN registered successfully",
+      token,
+      user: {
+        _id: newUser._id,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        middleName: newUser.middleName,
+        email: newUser.email,
+        role: newUser.role,
+        createdAt: newUser.createdAt,
+        updatedAt: newUser.updatedAt,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 // Login User

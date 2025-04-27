@@ -32,7 +32,7 @@ const User = () => {
   // Delete user handler
   const handleDeleteUser = async (userId) => {
     try {
-      await axios.delete(`http://localhost:3000/api/admin/users/${userId}`, {
+      await axios.delete(`https://mern-portfolio-backend-ef1q.onrender.com/api/admin/users/${userId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

@@ -41,7 +41,7 @@ const Education = () => {
   // Delete education
   const handleDeleteEducation = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/school/education/${id}`, {
+      await axios.delete(`https://mern-portfolio-backend-ef1q.onrender.com/api/school/education/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

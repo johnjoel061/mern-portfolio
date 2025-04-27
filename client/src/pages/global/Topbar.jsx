@@ -1,6 +1,5 @@
 import { Box } from "@mui/material";
 import { Button } from "antd";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { Link } from "react-router-dom";
 // For Log Out
 import { useAuth } from "../../contexts/AuthContext";

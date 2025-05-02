@@ -35,6 +35,7 @@ import UbuntuImage from "../../assets/technologies/Ubuntu.png";
 import BootstrapImage from "../../assets/technologies/bootstrap.png";
 import TailwindImage from "../../assets/technologies/tailwind.png";
 import SassImage from "../../assets/technologies/sass.png";
+import MoodleImage from "../../assets/technologies/moodle.png";
 
 import AboutImage from "../../assets/about.jpg";
 import Resume from "../../assets/my_cv.pdf";
@@ -402,6 +403,10 @@ const Homepage = () => {
 
                     <div className="techStack-content">
                       <img src={MongoDBImage} alt="" />
+                    </div>
+
+                    <div className="techStack-content">
+                      <img src={MoodleImage} alt="" />
                     </div>
 
                     <div className="techStack-content">

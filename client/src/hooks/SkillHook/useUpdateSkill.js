@@ -14,7 +14,7 @@ const useUpdateSkill = () => {
     setLoading(true);
     try {
       const response = await axios.put(
-        `https://mern-portfolio-backend-ef1q.onrender.com/api/talent/skill/update/${id}`,
+        `https://mern-portfolio-backend-vnuz.onrender.com/api/talent/skill/update/${id}`,
         { skillName, skillDescription },
         {
           headers: {

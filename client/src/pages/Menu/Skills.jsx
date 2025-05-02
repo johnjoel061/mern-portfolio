@@ -42,7 +42,7 @@ const Skills = () => {
   // Delete skill handler
   const handleDeleteSkill = async (skillId) => {
     try {
-      await axios.delete(`https://mern-portfolio-backend-ef1q.onrender.com/api/talent/skill/${skillId}`, {
+      await axios.delete(`https://mern-portfolio-backend-vnuz.onrender.com/api/talent/skill/${skillId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

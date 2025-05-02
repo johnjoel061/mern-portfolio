@@ -9,7 +9,7 @@ const useFetchExperiences = () => {
   const fetchExperiences = useCallback(async () => {
     setLoading(true); // Ensure loading state is true when refetching
     try {
-      const response = await axios.get('https://mern-portfolio-backend-ef1q.onrender.com/api/employment/experience/all', {
+      const response = await axios.get('https://mern-portfolio-backend-vnuz.onrender.com/api/employment/experience/all', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }

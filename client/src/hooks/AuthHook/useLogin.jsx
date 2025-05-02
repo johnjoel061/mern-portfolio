@@ -11,7 +11,7 @@ const useLogin = () => {
         try {
             setError(null);
             setLoading(true);
-            const res = await fetch('https://mern-portfolio-backend-ef1q.onrender.com/api/auth/login', {
+            const res = await fetch('https://mern-portfolio-backend-vnuz.onrender.com/api/auth/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

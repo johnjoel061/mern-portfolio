@@ -8,7 +8,7 @@ const useUpdateExperience = () => {
   const updateExperience = async (id, updatedData, onSuccess) => {
     setLoading(true);
     try {
-      const response = await axios.put(`https://mern-portfolio-backend-ef1q.onrender.com/api/employment/experience/update/${id}`, updatedData);
+      const response = await axios.put(`https://mern-portfolio-backend-vnuz.onrender.com/api/employment/experience/update/${id}`, updatedData);
       message.success("Experience updated successfully!");
       if (onSuccess) onSuccess(response.data);
     } catch (error) {

@@ -9,7 +9,7 @@ const useResetPassword = () => {
     setLoading(true);
 
     try {
-      const response = await axios.post('https://mern-portfolio-backend-ef1q.onrender.com/api/auth/reset-password', {
+      const response = await axios.post('https://mern-portfolio-backend-vnuz.onrender.com/api/auth/reset-password', {
         email,
         verificationCode,
         newPassword

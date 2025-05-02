@@ -15,7 +15,7 @@ const useAddSkill = () => {
     try {
       // Send POST request to add a new skill
       const response = await axios.post(
-        'https://mern-portfolio-backend-ef1q.onrender.com/api/talent/skill/add',
+        'https://mern-portfolio-backend-vnuz.onrender.com/api/talent/skill/add',
         { skillName, skillDescription },
         {
           headers: {

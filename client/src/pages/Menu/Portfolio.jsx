@@ -84,7 +84,7 @@ const Portfolio = () => {
   // Delete portfolio handler
   const handleDeletePortfolio = async (id) => {
     try {
-      await axios.delete(`https://mern-portfolio-backend-ef1q.onrender.com/api/projects/portfolio/${id}`, {
+      await axios.delete(`https://mern-portfolio-backend-vnuz.onrender.com/api/projects/portfolio/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

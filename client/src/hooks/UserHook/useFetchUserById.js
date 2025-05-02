@@ -9,7 +9,7 @@ const useFetchUserById = (id) => {
   const fetchUserById = useCallback(async () => {
     setLoading(true); // Ensure loading state is true when refetching
     try {
-      const response = await axios.get(`https://mern-portfolio-backend-ef1q.onrender.com/api/admin/users/${id}`, {
+      const response = await axios.get(`https://mern-portfolio-backend-vnuz.onrender.com/api/admin/users/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }

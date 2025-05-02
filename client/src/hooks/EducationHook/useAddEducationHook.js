@@ -8,7 +8,7 @@ const useAddEducation = () => {
   const addEducation = async (educationData, onSuccess) => {
     setLoading(true);
     try {
-      const response = await axios.post("https://mern-portfolio-backend-ef1q.onrender.com/api/school/education/add", educationData);
+      const response = await axios.post("https://mern-portfolio-backend-vnuz.onrender.com/api/school/education/add", educationData);
       message.success("Education added successfully!");
       if (onSuccess) onSuccess(response.data);
     } catch (error) {

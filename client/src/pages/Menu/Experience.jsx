@@ -41,7 +41,7 @@ const Experience = () => {
   // Delete experience handler
   const handleDeleteExperience = async (id) => {
     try {
-      await axios.delete(`https://mern-portfolio-backend-ef1q.onrender.com/api/employment/experience/${id}`, {
+      await axios.delete(`https://mern-portfolio-backend-vnuz.onrender.com/api/employment/experience/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
